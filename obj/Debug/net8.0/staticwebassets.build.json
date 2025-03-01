@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RAY+f5goYcxAAdNx2yylxvXE7RGU2lflbfASH77ftHE=",
+  "Hash": "uRopfYx5DjTLFUqlmifG/REP7AZMMhvdnQoW2Ljl+/8=",
   "Source": "UI",
   "BasePath": "_content/UI",
   "Mode": "Default",
@@ -15,5 +15,63 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/EventListeners.js",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Scripts/EventListeners.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Scripts/EventListeners.js"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignIn.js",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Scripts/SignIn.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Scripts/SignIn.js"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Utilities.js",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Scripts/Utilities.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Scripts/Utilities.js"
+    }
+  ]
 }

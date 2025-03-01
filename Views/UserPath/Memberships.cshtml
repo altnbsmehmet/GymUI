@@ -1,0 +1,65 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    
+    <!-- Hero Section -->
+    <section class="bg-sky-600 text-white text-center py-6">
+        <h1 class="text-4xl font-bold">Gym name...</h1>
+        <div class="mt-4 flex justify-center items-center gap-4">
+            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
+            </form>
+            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Trainers</button>
+            </form>
+            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Gallery</button>
+            </form>
+            <div class="ml-16 flex justify-center items-center gap-4">
+                <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
+                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign In</button>
+                </form>
+                <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
+                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign Up</button>
+                </form>
+                <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                    <button type="submit" class="w-12 h-12 bg-white text-black text-xs p-2 rounded-full hover:bg-gray-200">Profile</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Membership Packages Section -->
+    <section class="container mx-auto my-12 px-6">
+        <h2 class="text-3xl font-bold text-center mb-6">Packages</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center border">
+                <h3 class="text-xl font-semibold">Basic Package</h3>
+                <p class="text-gray-600 mt-2">10 entries per month</p>
+                <p class="text-lg font-bold mt-4">₺199</p>
+                <button class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Purchase</button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center border">
+                <h3 class="text-xl font-semibold">Standard Package</h3>
+                <p class="text-gray-600 mt-2">Unlimited access + Group classes</p>
+                <p class="text-lg font-bold mt-4">₺349</p>
+                <button class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Purchase</button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center border">
+                <h3 class="text-xl font-semibold">Premium Package</h3>
+                <p class="text-gray-600 mt-2">All amenities + Personal trainer</p>
+                <p class="text-lg font-bold mt-4">₺599</p>
+                <button class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Purchase</button>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

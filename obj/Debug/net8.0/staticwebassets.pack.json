@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/EventListeners.js",
+      "PackagePath": "staticwebassets/Scripts/EventListeners.js"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignIn.js",
+      "PackagePath": "staticwebassets/Scripts/SignIn.js"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Utilities.js",
+      "PackagePath": "staticwebassets/Scripts/Utilities.js"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.UI.props",
+      "PackagePath": "build\\UI.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.UI.props",
+      "PackagePath": "buildMultiTargeting\\UI.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.UI.props",
+      "PackagePath": "buildTransitive\\UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

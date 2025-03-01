@@ -53,3 +53,6 @@
 /Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/UI.csproj.Up2Date
 /Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/UI.genruntimeconfig.cache
 /Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/ref/UI.dll
+/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/UI.RazorAssemblyInfo.cache
+/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/UI.RazorAssemblyInfo.cs
+/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/obj/Debug/net8.0/UI.sourcelink.json
