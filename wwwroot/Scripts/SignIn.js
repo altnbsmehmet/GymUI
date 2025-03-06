@@ -10,7 +10,7 @@ document.getElementById('signInForm').addEventListener('submit', async function(
     try {
         const response = await fetch('http://localhost:5410/api/user/signin', {
             method: 'POST',
-            credentials: 'include', // withCredentials yerine kullanılır
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

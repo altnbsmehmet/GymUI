@@ -1,4 +1,6 @@
+using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -16,14 +18,25 @@ public class UserController : Controller
     public async Task<IActionResult> SignUp(SignUpDto signUpDto)
     {
         signUpDto.Role = "Member";
-        Console.WriteLine($"\nSignUpDto --> {JsonConvert.SerializeObject(signUpDto)}\n");
-        var jsonContent = new StringContent(JsonConvert.SerializeObject(signUpDto), Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync("http://localhost:5410/api/user/signup", jsonContent);
 
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+        var response = await _httpClient.PostAsJsonAsync("http://localhost:5410/api/user/signup", signUpDto);
+        var result = await response.Content.ReadFromJsonAsync<ResponseBase>();
 
-        Console.WriteLine($"\nResult --> {JsonConvert.SerializeObject(result)}\n");
+        var viewModel = new ViewModelBase();
+
+        if (!result.IsSuccess) {
+            viewModel.Message = result.Message;
+            return View("~/Views/UserPath/SignUp.cshtml", viewModel);
+        }
+
+        return RedirectToAction("GetSignInPage", "Page");
+    }
+
+    /*[HttpPost("signin")]
+    public async Task<IActionResult> SignIn(SignInDto signInDto)
+    {
+        var response = await _httpClient.PostAsJsonAsync("http://localhost:5410/api/user/signin", signInDto);
+        var result = await response.Content.ReadFromJsonAsync<ResponseBase>();
 
         if (!result.IsSuccess) {
             var viewModel = new ViewModelBase();
@@ -31,7 +44,26 @@ public class UserController : Controller
             return View("~/Views/UserPath/SignUp.cshtml", viewModel);
         }
 
-        return View("SignIn");
+        return RedirectToAction("GetHomePage", "Page");
+    }*/
+
+    [HttpPost("update")]
+    public async Task<IActionResult> Update(SignUpDto signUpDto)
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Request.Cookies["jwt"]);
+
+        var userResponse = await _httpClient.GetAsync("http://localhost:5410/api/user/getcurrentuser");
+        var userResult = await userResponse.Content.ReadFromJsonAsync<GetUserResponse>();
+
+        Console.WriteLine($"\nUserResult\n{JsonConvert.SerializeObject(userResult, Formatting.Indented)}\n");
+        var userId = userResult.User.Id;
+
+        var response = await _httpClient.PatchAsJsonAsync($"http://localhost:5410/api/user/update/{userId}", signUpDto);
+        var result = await response.Content.ReadFromJsonAsync<ResponseBase>();
+        Console.WriteLine($"\nUserResult\n{JsonConvert.SerializeObject(result, Formatting.Indented)}\n");
+
+        TempData["Message"] = result.Message;
+        return RedirectToAction("GetProfilePage", "Page");
     }
 
 }

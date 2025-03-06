@@ -13,6 +13,9 @@
     <section class="bg-sky-600 text-white text-center py-6">
         <h1 class="text-4xl font-bold">Gym name...</h1>
         <div class="mt-4 flex justify-center items-center gap-4">
+            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
+            </form>
             <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
                 <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
             </form>

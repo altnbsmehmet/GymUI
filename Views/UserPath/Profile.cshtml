@@ -1,4 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model UserInfoViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,9 @@
     <section class="bg-sky-600 text-white text-center py-6">
         <h1 class="text-4xl font-bold">Gym name...</h1>
         <div class="mt-4 flex justify-center items-center gap-4">
+            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
+            </form>
             <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
                 <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
             </form>
@@ -37,26 +41,58 @@
     </section>
     
     <!-- Profile Information -->
-    <section class="container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
+    <section class="flex flex-col justify-center items-center container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold mb-4">Personal Information</h2>
-        <div class="space-y-4">
-            <p><strong>Full Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> johndoe@example.com</p>
-            <p><strong>Phone:</strong> +90 555 123 45 67</p>
-            <button class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Update Information</button>
+        @if(Model.User != null) {
+        <div id="personalInformation" class="flex flex-col justify-center items-center space-y-4">
+            <img id="profilePhoto" src="@(Model.User.ProfilePhoto)" class="w-24 h-24 rounded-full object-cover"/>
+            <p id="fullName"><strong>FullName: </strong>@(Model.User.FirstName) @(Model.User.LastName)</p>
+            <p id="userName"><strong>UserName: </strong>@(Model.User.UserName)</p>
+            <p id="aboutme"><strong></strong></p>
+            @if(Model.Employee != null) {
+            <p id="position"><strong>Position: </strong>@(Model.Employee.Position)</p>
+            <p id="salary"><strong>Salary: </strong>@(Model.Employee.Salary)</p>
+            }
+            <button id="updateDivButton" class="w-32 mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Update</button>
         </div>
+        <form id="updateForm" class="hidden flex flex-col items-center justify-center gap-4 space-y-4" asp-action="Update" asp-controller="User" method="POST">
+            <img id="profilePhoto" class="w-24', 'h-24', 'rounded-full', 'object-cover"/>
+            <input type="text" name="firstName" placeholder="first name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="text" name="lastName" placeholder="last name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="text" name="userName" placeholder="username..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <div class="flex gap-4 items-center">
+                <button type="button" id="cancelFormButton" class="w-8 h-8 text-center leading-8 bg-red-600 text-white rounded-lg hover:bg-red-700">X</button>
+                <button type="submit" id="updateFormButton" class="w-32 h-8 text-center leading-8 bg-green-600 text-white px-4 rounded-lg hover:bg-green-700">Update</button>
+            </div>
+
+        </form>
+        }
+        @if(Model.Message != null) {
+            <p>@(Model.Message)</p>
+        }
     </section>
     
-    <!-- Membership Status -->
-    <section class="container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-4">Membership Information</h2>
-        <div class="space-y-4">
-            <p><strong>Membership Type:</strong> Premium Package</p>
-            <p><strong>Start Date:</strong> January 1, 2025</p>
-            <p><strong>End Date:</strong> July 1, 2025</p>
-            <button class="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">Cancel Membership</button>
-        </div>
-    </section>
+<section class="flex flex-col justify-center items-center container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Subscriptions</h2>
+    
+    <div class="grid grid-cols-2 gap-6">
+    @if(Model.Subscriptions != null) {
+        @foreach (var subscription in Model.Subscriptions)
+        {
+            <div class="space-y-4">
+                <p><strong>Subscription: </strong> @subscription.Membership.Type</p>
+                <p><strong>Duration: </strong>@subscription.Membership.Duration</p>
+                <p><strong>Price: </strong>@subscription.Membership.Price</p>
+                <p><strong>Start Date:</strong> @subscription.StartDate.ToString("MMMM dd, yyyy")</p>
+                <p><strong>End Date:</strong> @subscription.EndDate.ToString("MMMM dd, yyyy")</p>
+                <button class="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">Cancel Subscription</button>
+            </div>
+        }
+    }
+    </div>
+</section>
 
+
+<script src="~/Scripts/Profile.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model TrainersViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,9 @@
     <section class="bg-sky-600 text-white text-center py-6">
         <h1 class="text-4xl font-bold">Gym name...</h1>
         <div class="mt-4 flex justify-center items-center gap-4">
+            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
+                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
+            </form>
             <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
                 <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
             </form>
@@ -36,25 +40,22 @@
         </div>
     </section>
     
-    <!-- Gallery Section -->
+    <!-- Trainers Section -->
     <section class="container mx-auto my-12 px-6">
         <h2 class="text-3xl font-bold text-center mb-6">Trainers</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-            <div class="w-full h-64 bg-white p-6 rounded-lg shadow-md border flex flex-col justify-center items-center gap-8">
-                <h1>trainer 1</h1>
-                <p>img</p>
-                <p>role and about</p>
-            </div>
-
-             <div class="w-full h-64 bg-white p-6 rounded-lg shadow-md border flex flex-col justify-center items-center gap-8">
-                <h1>trainer 2</h1>
-                <p>img</p>
-                <p>role and about</p>
-            </div>
-
+        <div id="trainers" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            @if(Model.Trainers != null) {
+                @foreach(var trainer in Model.Trainers) {
+                    <div class="w-full h-64 bg-white p-6 rounded-lg shadow-md border flex flex-col justify-center items-center gap-8">
+                        <img src="@trainer.User.ProfilePhoto" class="w-24 h-24 rounded-full object-cover" />
+                        <p class="text-lg font-semibold">@trainer.User.FirstName @trainer.User.LastName</p>
+                        <p class="text-sm"></p>
+                    </div>
+                }
+            }
         </div>
     </section>
     
+<script src="~/Scripts/Trainers.js"></script>
 </body>
 </html>

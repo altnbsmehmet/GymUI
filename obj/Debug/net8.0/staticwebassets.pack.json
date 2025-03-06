@@ -5,8 +5,20 @@
       "PackagePath": "staticwebassets/Scripts/EventListeners.js"
     },
     {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Memberships.js",
+      "PackagePath": "staticwebassets/Scripts/Memberships.js"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Profile.js",
+      "PackagePath": "staticwebassets/Scripts/Profile.js"
+    },
+    {
       "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignIn.js",
       "PackagePath": "staticwebassets/Scripts/SignIn.js"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Trainers.js",
+      "PackagePath": "staticwebassets/Scripts/Trainers.js"
     },
     {
       "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Utilities.js",

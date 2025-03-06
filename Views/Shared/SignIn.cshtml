@@ -1,4 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ViewModelBase
 <!DOCTYPE html>
 <html lang="en" class="h-full w-full">
 <head>
@@ -17,8 +18,11 @@
             <input type="password" name="password" placeholder="password..." 
                    class="border p-2 rounded w-64" />
             <button class="w-20 h-8 bg-blue-600 text-white rounded-lg" type="submit">Sign In</button>
+            @if(Model.Message != null) {
+                <p>@(Model.Message)</p>
+            }
         </form>
-
+        <p class="text-md">or</p>
         <form class="flex flex-col items-center justify-center" 
               asp-action="GetSignUpPage" asp-controller="Page" method="GET">
             <button class="w-16 h-6 bg-blue-400 text-white rounded-md" type="submit">Sign Up</button>
