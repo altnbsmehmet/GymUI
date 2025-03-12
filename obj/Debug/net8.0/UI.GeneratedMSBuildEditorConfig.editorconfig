@@ -42,10 +42,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0FkbWluSGVyby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/Views/Shared/SignIn.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL1NpZ25Jbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/Views/Shared/UserHero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL1VzZXJIZXJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -68,10 +64,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/Views/UserPath/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclBhdGgvUHJvZmlsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/Views/UserPath/SignUp.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclBhdGgvU2lnblVwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/Views/UserPath/Trainers.cshtml]

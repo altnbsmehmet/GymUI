@@ -19,14 +19,8 @@
             class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Gallery</button>
         </form>
         <div class="ml-16 flex justify-center items-center gap-4">
-            <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
-                <button type="submit" 
-                class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Sign In</button>
-            </form>
-            <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
-                <button type="submit" 
-                class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Sign Up</button>
-            </form>
+            <button id="signInButton0" type="submit"
+            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Sign In</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
                 <button type="submit" 
                 class="w-12 h-12 text-xs p-2 border-2 border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
@@ -34,3 +28,49 @@
         </div>
     </div>
 </section>
+
+<!-- SignIn Form -->
+<div id="signInForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
+flex flex-col justify-center items-center gap-1">
+    <form asp-action="SignIn" asp-controller="User" method="POST"
+    class="flex flex-col justify-center items-center gap-2">
+        <p class="font-bold">Sign In</p>
+        <input type="text" name="userName" placeholder="username..." 
+        class="border p-2 rounded w-64" />
+        <input type="password" name="password" placeholder="password..." 
+        class="border p-2 rounded w-64" />
+        <button class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+        hover:bg-white hover:text-[#00316E] hover:border-[#00316E]" type="submit">Sign In</button>
+    </form>
+    <p class="">or</p>
+    <button id="signUpButton" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
+    hover:bg-white hover:text-black hover:border-black" type="submit">Sign Up</button>
+</div>
+
+
+<!-- SignUp Form -->
+<div id="signUpForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
+flex flex-col justify-center items-center gap-1">
+    <form asp-action="SignUp" asp-controller="User" method="POST" enctype="multipart/form-data"
+    class="flex flex-col justify-center items-center gap-2">
+        <p class="font-bold">Sign Up</p>
+        <input type="text" name="userName" placeholder="Username..." 
+        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="password" name="password" placeholder="Password..." 
+        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" name="firstName" placeholder="Firstname..." 
+        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" name="lastName" placeholder="Lastname..." 
+        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <div class="flex justify-center items-center gap-4">
+            <label class="w-24">ProfilePhoto: </label>
+            <input type="file" name="profilePhoto"
+            class="w-64 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />                     
+        </div>
+        <button type="submit" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+        hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Sign Up</button>
+    </form>
+    <p class="">or</p>
+    <button id="signInButton1" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
+    hover:bg-white hover:text-black hover:border-black" type="submit">Sign In</button>
+</div>

@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets/Scripts/Profile.js"
     },
     {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignInOrUp.js",
+      "PackagePath": "staticwebassets/Scripts/SignInOrUp.js"
+    },
+    {
       "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg",
       "PackagePath": "staticwebassets/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg"
     },

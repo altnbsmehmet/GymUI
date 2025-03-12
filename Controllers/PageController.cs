@@ -14,20 +14,6 @@ public class PageController : Controller
         _httpClientService = httpClientService;
     }
 
-    [HttpGet("signin")]
-    public async Task<IActionResult> GetSignInPage()
-    {
-        var viewModel = new ViewModelBase();
-        return View("SignIn", viewModel);
-    }
-
-    [HttpGet("signup")]
-    public async Task<IActionResult> GetSignUpPage()
-    {
-        var viewModel = new ViewModelBase();
-        return View("~/Views/UserPath/SignUp.cshtml", viewModel);
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetHomePage()
     {

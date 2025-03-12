@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WYvG5uHZoZNlHwu1y1ih+padJ6ORid3Qy3YJVXYvkX4=",
+  "Hash": "FRj6ISyzMgp2Fr/nVQsmosowsA9pyhTnZDIi9VA4GYw=",
   "Source": "UI",
   "BasePath": "_content/UI",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/Scripts/Profile.js"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignInOrUp.js",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Scripts/SignInOrUp.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Scripts/SignInOrUp.js"
     },
     {
       "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg",

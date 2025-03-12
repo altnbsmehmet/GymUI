@@ -78,7 +78,7 @@ public class UserController : Controller
         Response.Cookies.Delete("jwt");
         
         TempData["Message"] = signOutResponse.Message;
-        return RedirectToAction("GetSignInPage", "Page");
+        return RedirectToAction("GetHomePage", "Page");
     }
 
     [HttpPost("update")]
