@@ -1,5 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model UserInfoViewModel
+@model ProfileViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,89 +8,80 @@
     <title>@ViewData["Title"] - Gym</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    
-    <!-- Hero Section -->
-    <section class="bg-sky-600 text-white text-center py-6">
-        <h1 class="text-4xl font-bold">Gym name...</h1>
-        <div class="mt-4 flex justify-center items-center gap-4">
-            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
-            </form>
-            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
-            </form>
-            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Trainers</button>
-            </form>
-            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Gallery</button>
-            </form>
-            <div class="ml-16 flex justify-center items-center gap-4">
-                <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign In</button>
-                </form>
-                <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign Up</button>
-                </form>
-                <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
-                    <button type="submit" class="w-12 h-12 bg-white text-black text-xs p-2 rounded-full hover:bg-gray-200">Profile</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<body>
+
+
+@await Html.PartialAsync("UserHero")
     
     <!-- Profile Information -->
-    <section class="flex flex-col justify-center items-center container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-4">Personal Information</h2>
-        @if(Model.User != null) {
-        <div id="personalInformation" class="flex flex-col justify-center items-center space-y-4">
-            <img id="profilePhoto" src="@(Model.User.ProfilePhoto)" class="w-24 h-24 rounded-full object-cover"/>
-            <p id="fullName"><strong>FullName: </strong>@(Model.User.FirstName) @(Model.User.LastName)</p>
-            <p id="userName"><strong>UserName: </strong>@(Model.User.UserName)</p>
-            <p id="aboutme"><strong></strong></p>
-            @if(Model.Employee != null) {
-            <p id="position"><strong>Position: </strong>@(Model.Employee.Position)</p>
-            <p id="salary"><strong>Salary: </strong>@(Model.Employee.Salary)</p>
-            }
-            <button id="updateDivButton" class="w-32 mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Update</button>
-        </div>
-        <form id="updateForm" class="hidden flex flex-col items-center justify-center gap-4 space-y-4" asp-action="Update" asp-controller="User" method="POST">
-            <img id="profilePhoto" class="w-24', 'h-24', 'rounded-full', 'object-cover"/>
-            <input type="text" name="firstName" placeholder="first name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <input type="text" name="lastName" placeholder="last name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <input type="text" name="userName" placeholder="username..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <div class="flex gap-4 items-center">
-                <button type="button" id="cancelFormButton" class="w-8 h-8 text-center leading-8 bg-red-600 text-white rounded-lg hover:bg-red-700">X</button>
-                <button type="submit" id="updateFormButton" class="w-32 h-8 text-center leading-8 bg-green-600 text-white px-4 rounded-lg hover:bg-green-700">Update</button>
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <p class="text-xl font-bold text-[#00316E]">Personal Information</p>
+                @if(Model.Message != null) {
+                    <p class="text-sm text-red-500">@(Model.Message)</p>
+                }
             </div>
-
-        </form>
-        }
-        @if(Model.Message != null) {
-            <p>@(Model.Message)</p>
-        }
+            @if(Model.User != null) {
+                <div id="personalInformation" class="flex flex-col justify-center items-center gap-2">
+                    <img id="profilePhoto" src="@(Model.User.ProfilePhoto)" class="w-24 h-24 rounded-full object-cover"/>
+                    <p id="fullName"><span class="text-lg font-semibold">FullName: </span>@(Model.User.FirstName) @(Model.User.LastName)</p>
+                    <p id="userName"><span class="text-lg font-semibold">UserName: </span>@(Model.User.UserName)</p>
+                    <p id="aboutme"><span class="text-lg font-semibold"></span></p>
+                    @if(Model.Employee != null) {
+                        <p id="position"><span class="text-lg font-semibold">Position: </span>@(Model.Employee.Position)</p>
+                        <p id="salary"><span class="text-lg font-semibold">Salary: </span>@(Model.Employee.Salary)</p>
+                    }
+                    <button id="updateDivButton" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                    hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Update</button>
+                    <form asp-action="SignOut" asp-controller="User" method="GET">
+                        <button type="submit" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Sign Out</button>
+                    </form>
+                </div>
+                <form id="updateForm" class="hidden bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2" asp-action="Update" asp-controller="User" method="POST">
+                    <img id="profilePhoto" class="w-24', 'h-24', 'rounded-full', 'object-cover"/>
+                    <input type="text" name="firstName" placeholder="first name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" name="lastName" placeholder="last name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" name="userName" placeholder="username..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <div class="flex gap-4 items-center">
+                        <button type="button" id="cancelFormButton" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">X</button>
+                        <button type="submit" id="updateFormButton"  class="py-1 px-4 bg-[#41AB5D] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#41AB5D] hover:border-[#41AB5D]">Update</button>
+                    </div>
+                </form>
+            }
+        </section>        
     </section>
     
-<section class="flex flex-col justify-center items-center container mx-auto my-12 px-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Subscriptions</h2>
-    
-    <div class="grid grid-cols-2 gap-6">
+    <!-- Subscriptions -->
     @if(Model.Subscriptions != null) {
-        @foreach (var subscription in Model.Subscriptions)
-        {
-            <div class="space-y-4">
-                <p><strong>Subscription: </strong> @subscription.Membership.Type</p>
-                <p><strong>Duration: </strong>@subscription.Membership.Duration</p>
-                <p><strong>Price: </strong>@subscription.Membership.Price</p>
-                <p><strong>Start Date:</strong> @subscription.StartDate.ToString("MMMM dd, yyyy")</p>
-                <p><strong>End Date:</strong> @subscription.EndDate.ToString("MMMM dd, yyyy")</p>
-                <button class="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">Cancel Subscription</button>
-            </div>
-        }
+        <section class="">
+            <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+                <p class="text-xl font-bold text-[#00316E] mb-4">Subscriptions</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                    @foreach (var subscription in Model.Subscriptions)
+                    {
+                        <div class="bg-white p-6 rounded-2xl shadow-md border
+                            flex flex-col justify-center items-center gap-2">
+                            <p><strong>Subscription: </strong> @(subscription.Membership.Type)</p>
+                            <p><strong>Duration: </strong>@(subscription.Membership.Duration) Months</p>
+                            <p><strong>Price: </strong>@(subscription.Membership.Price)₺ (Paid)</p>
+                            <p><strong>Start Date:</strong> @(subscription.StartDate.HasValue ? subscription.StartDate.Value.ToString("MMMM dd, yyyy") : "N/A")</p>
+                            <p><strong>End Date:</strong> @(subscription.EndDate.HasValue ? subscription.EndDate.Value.ToString("MMMM dd, yyyy") : "N/A")</p>
+                            <form action="subscription/cancel/@(subscription.Id)" method="GET">
+                                <button class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Cancel Subscription</button>
+                            </form>
+                            
+                        </div>
+                    }
+                </div>
+            </section>        
+        </section>
     }
-    </div>
-</section>
 
 
 <script src="~/Scripts/Profile.js"></script>

@@ -1,15 +1,17 @@
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 
 [Route("")]
 public class PageController : Controller
 {
-    private readonly HttpClient _httpClient;
-
-    public PageController(HttpClient httpClient)
+    private readonly IPageService _pageService;
+    private readonly IHttpClientService _httpClientService;
+    public PageController(IPageService pageService, IHttpClientService httpClientService)
     {
-        _httpClient = httpClient;
+        _pageService = pageService;
+        _httpClientService = httpClientService;
     }
 
     [HttpGet("signin")]
@@ -26,7 +28,7 @@ public class PageController : Controller
         return View("~/Views/UserPath/SignUp.cshtml", viewModel);
     }
 
-    [HttpGet("home")]
+    [HttpGet]
     public async Task<IActionResult> GetHomePage()
     {
         return View("~/Views/UserPath/Home.cshtml");
@@ -35,17 +37,44 @@ public class PageController : Controller
     [HttpGet("memberships")]
     public async Task<IActionResult> GetMembershipsPage()
     {
-        return View("~/Views/UserPath/Memberships.cshtml");
+        var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>("http://localhost:5410/api/membership/getall");
+
+        var viewModel = new MembershipsViewModel();
+        viewModel.Memberships = membershipsResponse.Memberships;
+
+        string message = TempData["Message"] as string;
+        if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+        return View("~/Views/UserPath/Memberships.cshtml", viewModel);
+    }
+
+    [HttpGet("memberships/subscribe/{id}")]
+    public async Task<IActionResult> GetMembershipPurchasePage(int id)
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Member") {
+            var membershipResponse = await _httpClientService.GetAsync<GetMembershipResponse>($"http://localhost:5410/api/membership/getbyid/{id}");
+
+            var viewModel = new MembershipViewModel();
+            viewModel.Membership = membershipResponse.Membership;
+
+            return View("~/Views/UserPath/MembershipPurchase.cshtml", viewModel);
+        } else if (authorizationResponse.IsSuccess && authorizationResponse.Role != "Member") {
+            TempData["Message"] = "You need to be a member to make a subscription.";
+            return RedirectToAction("GetMembershipsPage", "Page");
+        }
+
+        TempData["Message"] = "Sign In to make a subscription.";
+        return RedirectToAction("GetMembershipsPage", "Page");
     }
 
     [HttpGet("trainers")]
     public async Task<IActionResult> GetTrainersPage()
     {
-        var response = await _httpClient.GetAsync("http://localhost:5410/api/employee/getall/Trainer");
-        var result = await response.Content.ReadFromJsonAsync<GetEmployeesResponse>();
+        var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>("http://localhost:5410/api/employee/getall/Trainer");
 
         var viewModel = new TrainersViewModel();
-        viewModel.Trainers = result.Employees;
+        viewModel.Trainers = employeeResponse.Employees;
 
         return View("~/Views/UserPath/Trainers.cshtml", viewModel);
     }
@@ -53,31 +82,139 @@ public class PageController : Controller
     [HttpGet("gallery")]
     public async Task<IActionResult> GetGalleryPage()
     {
-        return View("~/Views/UserPath/Gallery.cshtml");
+        var viewModel = new GalleryViewModel();
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+        viewModel.Images = Directory.GetFiles(uploadsFolder)
+            .Select(Path.GetFileName)
+            .ToList();
+        return View("~/Views/UserPath/Gallery.cshtml", viewModel);
     }
 
     [HttpGet("profile")]
     public async Task<IActionResult> GetProfilePage()
     {
-        var jwt = HttpContext.Request.Cookies["jwt"];
-        var viewModel = new UserInfoViewModel();
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
 
-        if (!string.IsNullOrEmpty(jwt)) {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+        var viewModel = new ProfileViewModel();
 
-            var userResponse = await _httpClient.GetAsync("http://localhost:5410/api/user/getcurrentuser");
-            var userResult = await userResponse.Content.ReadFromJsonAsync<GetUserResponse>();
+        if (authorizationResponse.IsSuccess) {
+            var userResponse = await _httpClientService.GetAsync<GetUserResponse>("http://localhost:5410/api/user/getcurrentuser");
+
+            if (!userResponse.IsSuccess) {
+                viewModel.Message = userResponse.Message;
+                return View("~/Views/UserPath/Profile.cshtml", viewModel);
+            }
+
+            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>("http://localhost:5410/api/subscription/getallbymemberid");
             
-            viewModel.User = userResult.User;
-            viewModel.Employee = userResult.Employee;
+            viewModel.User = userResponse.User;
+            viewModel.Employee = userResponse.Employee;
+            viewModel.Member = userResponse.Member;
+            viewModel.Subscriptions = subscriptionsResponse.Subscriptions;
 
             string message = TempData["Message"] as string;
-            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;            
+            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
 
             return View("~/Views/UserPath/Profile.cshtml", viewModel);
         }
 
+        viewModel.Message = "Sign In to see profile information.";
         return View("~/Views/UserPath/Profile.cshtml", viewModel);
     }
+
+    [HttpGet("adminpanel/home")]
+    public async Task<IActionResult> GetAdminHomePage()
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
+            return View("~/Views/AdminPath/AdminHome.cshtml");            
+        }
+
+        return RedirectToAction("GetHomePage", "Page");
+    }
+
+    [HttpGet("adminpanel/memberships")]
+    public async Task<IActionResult> GetAdminMembershipsPage()
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
+            var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>("http://localhost:5410/api/membership/getall");
+
+            var viewModel = new MembershipsViewModel();
+            viewModel.Memberships = membershipsResponse.Memberships;
+            string message = TempData["Message"] as string;
+            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+
+            return View("~/Views/AdminPath/AdminMemberships.cshtml", viewModel);            
+        }
+
+        return RedirectToAction("GetHomePage", "Page");
+    }
+
+    [HttpGet("adminpanel/employees")]
+    public async Task<IActionResult> GetAdminEmployeesPage()
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
+            var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>("http://localhost:5410/api/employee/getall");
+
+            var viewModel = new EmployeesViewModel();
+            viewModel.Employees = employeeResponse.Employees;
+            string message = TempData["Message"] as string;
+            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+            return View("~/Views/AdminPath/AdminEmployees.cshtml", viewModel);            
+        }
+
+        return RedirectToAction("GetHomePage", "Page");
+    }
+
+    [HttpGet("adminpanel/gallery")]
+    public async Task<IActionResult> GetAdminGalleryPage()
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
+            var viewModel = new GalleryViewModel();
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            viewModel.Images = Directory.GetFiles(uploadsFolder)
+                .Select(Path.GetFileName)
+                .ToList();
+            string message = TempData["Message"] as string;
+            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+            return View("~/Views/AdminPath/AdminGallery.cshtml", viewModel);
+        }
+
+        return RedirectToAction("GetHomePage", "Page");
+    }
+
+    [HttpGet("adminpanel/profile")]
+    public async Task<IActionResult> GetAdminProfilePage()
+    {
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>("http://localhost:5410/api/user/authorizeuser");
+        if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
+            var userResponse = await _httpClientService.GetAsync<GetUserResponse>("http://localhost:5410/api/user/getcurrentuser");
+
+            var viewModel = new ProfileViewModel();
+
+            if (!userResponse.IsSuccess) {
+                viewModel.Message = userResponse.Message;
+                return View("~/Views/AdminPath/AdminProfile.cshtml", viewModel);
+            }
+
+            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>("http://localhost:5410/api/subscription/getallbymemberid");
+            
+            viewModel.User = userResponse.User;
+            viewModel.Employee = userResponse.Employee;
+            viewModel.Member = userResponse.Member;
+            viewModel.Subscriptions = subscriptionsResponse.Subscriptions;
+
+            string message = TempData["Message"] as string;
+            if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+
+            return View("~/Views/AdminPath/AdminProfile.cshtml", viewModel);
+        }
+
+        return RedirectToAction("GetHomePage", "Page");
+    }
+
 
 }

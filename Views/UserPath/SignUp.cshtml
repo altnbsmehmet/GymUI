@@ -10,9 +10,10 @@
 </head>
 <body class="h-full">
 
+
        <div class="h-[60%] flex flex-col gap-4 justify-center items-center">
-              <form class="flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-md"
-                     asp-action="SignUp" asp-controller="User" method="POST">
+              <form asp-action="SignUp" asp-controller="User" method="POST" enctype="multipart/form-data"
+                     class="w-[400px] flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-md">
                      <h1 class="text-xl font-bold text-gray-700">Sign Up</h1>
 
                      <input type="text" name="userName" placeholder="Username..." 
@@ -27,8 +28,14 @@
                      <input type="text" name="lastName" placeholder="Lastname..." 
                             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
+                     <div class="flex justify-center items-center gap-4">
+                            <label class="w-24">ProfilePhoto: </label>
+                            <input type="file" name="profilePhoto" 
+                                   class="w-64 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />                     
+                     </div>
+
                      <button type="submit" 
-                            class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">Sign Up</button>
+                            class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">Sign Up</button>       
 
                      @if(Model.Message != null) {
                      <p>@(Model.Message)</p>
@@ -40,6 +47,7 @@
               <button class="w-16 h-6 bg-blue-400 text-white rounded-md" type="submit">Sign In</button>
               </form>
        </div>
+
 
 </body>
 </html>

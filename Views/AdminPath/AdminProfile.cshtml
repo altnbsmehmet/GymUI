@@ -1,0 +1,62 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProfileViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+
+@await Html.PartialAsync("AdminHero")
+    
+    <!-- Profile Information -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <p class="text-xl font-bold text-[#00316E]">Personal Information</p>
+                @if(Model.Message != null) {
+                    <p class="text-sm text-red-500">@(Model.Message)</p>
+                }
+            </div>
+            @if(Model.User != null) {
+                <div id="personalInformation" class="flex flex-col justify-center items-center gap-2">
+                    <img id="profilePhoto" src="@(Model.User.ProfilePhoto)" class="w-24 h-24 rounded-full object-cover"/>
+                    <p id="fullName"><span class="text-lg font-semibold">FullName: </span>@(Model.User.FirstName) @(Model.User.LastName)</p>
+                    <p id="userName"><span class="text-lg font-semibold">UserName: </span>@(Model.User.UserName)</p>
+                    <p id="aboutme"><span class="text-lg font-semibold"></span></p>
+                    @if(Model.Employee != null) {
+                        <p id="position"><span class="text-lg font-semibold">Position: </span>@(Model.Employee.Position)</p>
+                        <p id="salary"><span class="text-lg font-semibold">Salary: </span>@(Model.Employee.Salary)</p>
+                    }
+                    <button id="updateDivButton" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                    hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Update</button>
+                    <form asp-action="SignOut" asp-controller="User" method="GET">
+                        <button type="submit" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Sign Out</button>
+                    </form>
+                </div>
+                <form id="updateForm" class="hidden bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2" asp-action="Update" asp-controller="User" method="POST">
+                    <img id="profilePhoto" class="w-24', 'h-24', 'rounded-full', 'object-cover"/>
+                    <input type="text" name="firstName" placeholder="first name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" name="lastName" placeholder="last name..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" name="userName" placeholder="username..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <div class="flex gap-4 items-center">
+                        <button type="button" id="cancelFormButton" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">X</button>
+                        <button type="submit" id="updateFormButton" class="py-1 px-4 bg-[#41AB5D] text-white border-2 border-white rounded-full 
+                        hover:bg-white hover:text-[#41AB5D] hover:border-[#41AB5D]">Update</button>
+                    </div>
+                </form>
+            }
+        </section>
+    </section>
+
+
+<script src="~/Scripts/Profile.js"></script>
+</body>
+</html>

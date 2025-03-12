@@ -1,28 +1,44 @@
 {
   "Files": [
     {
-      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/EventListeners.js",
-      "PackagePath": "staticwebassets/Scripts/EventListeners.js"
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminEmployees.js",
+      "PackagePath": "staticwebassets/Scripts/AdminEmployees.js"
     },
     {
-      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Memberships.js",
-      "PackagePath": "staticwebassets/Scripts/Memberships.js"
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminGallery.js",
+      "PackagePath": "staticwebassets/Scripts/AdminGallery.js"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminMemberships.js",
+      "PackagePath": "staticwebassets/Scripts/AdminMemberships.js"
     },
     {
       "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Profile.js",
       "PackagePath": "staticwebassets/Scripts/Profile.js"
     },
     {
-      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignIn.js",
-      "PackagePath": "staticwebassets/Scripts/SignIn.js"
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg",
+      "PackagePath": "staticwebassets/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg"
     },
     {
-      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Trainers.js",
-      "PackagePath": "staticwebassets/Scripts/Trainers.js"
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/882c47fc-4ad8-416f-8b14-4f64e7733615.jpg",
+      "PackagePath": "staticwebassets/Uploads/882c47fc-4ad8-416f-8b14-4f64e7733615.jpg"
     },
     {
-      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Utilities.js",
-      "PackagePath": "staticwebassets/Scripts/Utilities.js"
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/993a0adf-ddd2-4b10-954d-24b8f4243454.jpg",
+      "PackagePath": "staticwebassets/Uploads/993a0adf-ddd2-4b10-954d-24b8f4243454.jpg"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/a00c28dc-acdf-4ca1-8094-e1700b9b018b.jpg",
+      "PackagePath": "staticwebassets/Uploads/a00c28dc-acdf-4ca1-8094-e1700b9b018b.jpg"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/a819731d-90a7-42d7-a37e-bf69694d9fea.jpeg",
+      "PackagePath": "staticwebassets/Uploads/a819731d-90a7-42d7-a37e-bf69694d9fea.jpeg"
+    },
+    {
+      "Id": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/aa9e6200-f4e6-48fb-9902-9230d1dd2737.jpeg",
+      "PackagePath": "staticwebassets/Uploads/aa9e6200-f4e6-48fb-9902-9230d1dd2737.jpeg"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.UI.Microsoft.AspNetCore.StaticWebAssets.props",

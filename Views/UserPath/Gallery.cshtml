@@ -1,4 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model GalleryViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,50 +8,24 @@
     <title>@ViewData["Title"] - Gym</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body>
     
-    <!-- Hero Section -->
-    <section class="bg-sky-600 text-white text-center py-6">
-        <h1 class="text-4xl font-bold">Gym name...</h1>
-        <div class="mt-4 flex justify-center items-center gap-4">
-            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
-            </form>
-            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
-            </form>
-            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Trainers</button>
-            </form>
-            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Gallery</button>
-            </form>
-            <div class="ml-16 flex justify-center items-center gap-4">
-                <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign In</button>
-                </form>
-                <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign Up</button>
-                </form>
-                <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
-                    <button type="submit" class="w-12 h-12 bg-white text-black text-xs p-2 rounded-full hover:bg-gray-200">Profile</button>
-                </form>
-            </div>
-        </div>
-    </section>
+
+@await Html.PartialAsync("UserHero")
     
     <!-- Gallery Section -->
-    <section class="container mx-auto my-12 px-6">
-        <h2 class="text-3xl font-bold text-center mb-6">Gallery</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <img src="/images/gym1.jpg" alt="Gym Photo 1" class="rounded-lg shadow-md w-full h-64 object-cover">
-            <img src="/images/gym2.jpg" alt="Gym Photo 2" class="rounded-lg shadow-md w-full h-64 object-cover">
-            <img src="/images/gym3.jpg" alt="Gym Photo 3" class="rounded-lg shadow-md w-full h-64 object-cover">
-            <img src="/images/gym4.jpg" alt="Gym Photo 4" class="rounded-lg shadow-md w-full h-64 object-cover">
-            <img src="/images/gym5.jpg" alt="Gym Photo 5" class="rounded-lg shadow-md w-full h-64 object-cover">
-            <img src="/images/gym6.jpg" alt="Gym Photo 6" class="rounded-lg shadow-md w-full h-64 object-cover">
-        </div>
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <p class="text-xl font-bold text-[#00316E] mb-4">Gallery</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                @foreach(var image in Model.Images) { 
+                    <img src="~/Uploads/@image" class="rounded-lg shadow-md w-full h-64 object-cover">
+                }
+            </div>
+        </section>        
     </section>
-    
+
+
+
 </body>
 </html>

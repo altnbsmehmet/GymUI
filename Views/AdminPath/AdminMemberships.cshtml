@@ -1,0 +1,73 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model MembershipsViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    
+    
+@await Html.PartialAsync("AdminHero")
+    
+    <!-- Memberships -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <div class="flex justify-center items-center gap-2">
+                    <p class="text-xl font-bold text-[#00316E]">Memberships</p>
+                    <button id="membershipCreationButton" class="text-2xl font-bold text-[#00316E]">+</button>
+                </div>
+
+                @if(Model.Message != null) {
+                    <p class="text-sm text-red-500">@(Model.Message)</p>
+                }
+                
+            </div>
+            <div id="memberships" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                @if(Model.Memberships != null) {
+                    foreach(var membership in Model.Memberships) {
+                        <div class="membershipInformation bg-white p-6 rounded-2xl shadow-md border
+                        flex flex-col justify-center items-center gap-2">
+                            <p class=""><span class="text-lg font-semibold">Type: </span>@membership.Type</p>
+                            <p class=""><span class="text-lg font-semibold">Price: </span>@(membership.Price)₺</p>
+                            <p class=""><span class="text-lg font-semibold">Duration: </span>@membership.Duration</p>
+                            @if((bool)membership.IsActive){
+                                <p class="text-xs"><span class="font-medium">Status: </span><span class="text-[#41AB5D]">Active</span></p>
+                                <p class="text-xs"><span class="font-medium">Active Subscriber Count: </span>@(membership.Subscribers.Count)</p>
+                                <form action="/admin/membership/toggleactivation/@(membership.Id)" method="GET">
+                                    <button type="submit" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                                    hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Deactivate</button>
+                                </form>
+                            } else {
+                                <p class="text-xs"><span class="font-medium">Status: </span><span class="text-[#D40D12]">Deactive</span></p>
+                                <p class="text-xs"><span class="font-medium">Active Subscriber Count: </span>@(membership.Subscribers.Count)</p>
+                                <form action="/admin/membership/toggleactivation/@(membership.Id)" method="GET">
+                                    <button type="submit" class="py-1 px-4 bg-[#41AB5D] text-white border-2 border-white rounded-full 
+                                    hover:bg-white hover:text-[#41AB5D] hover:border-[#41AB5D]">Activate</button>
+                                </form>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+    </section>
+
+
+        <!-- Membership Creation Form (Hidden) -->
+        <form id="membershipCreationForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
+        flex flex-col justify-center items-center gap-2" asp-action="CreateMembership" asp-controller="Admin" method="POST">
+            <input type="text" name="type" placeholder="Type..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="number" name="duration" placeholder="Duration..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="number" name="price" placeholder="Price..." class="w-32 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+            hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Create</button>
+        </form>
+    
+<script src="~/Scripts/AdminMemberships.js"></script>
+</body>
+</html>

@@ -3,6 +3,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://0.0.0.0:5420"); 
 
 builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor(); 
+
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IHttpClientService, HttpClientService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPageService, PageService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();

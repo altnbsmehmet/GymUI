@@ -1,4 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model MembershipsViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,47 +8,41 @@
     <title>@ViewData["Title"] - Gym</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body>
+
+
+@await Html.PartialAsync("UserHero")
     
-    <!-- Hero Section -->
-    <section class="bg-sky-600 text-white text-center py-6">
-        <h1 class="text-4xl font-bold">Gym name...</h1>
-        <div class="mt-4 flex justify-center items-center gap-4">
-            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
-            </form>
-            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
-            </form>
-            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Trainers</button>
-            </form>
-            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Gallery</button>
-            </form>
-            <div class="ml-16 flex justify-center items-center gap-4">
-                <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign In</button>
-                </form>
-                <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign Up</button>
-                </form>
-                <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
-                    <button type="submit" class="w-12 h-12 bg-white text-black text-xs p-2 rounded-full hover:bg-gray-200">Profile</button>
-                </form>
+    <!-- Memberships -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <p class="text-xl text-[#00316E] font-bold">Memberships</p>
+                @if(Model.Message != null) {
+                    <p class="text-sm text-red-500 mt-2">@(Model.Message)</p>
+                }                    
             </div>
-        </div>
+            <div id="memberships" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                @if(Model.Memberships != null) {
+                    foreach(var membership in Model.Memberships) {
+                        if((bool)membership.IsActive) {
+                            <div class="bg-white p-6 rounded-2xl shadow-md border
+                            flex flex-col justify-center items-center gap-2">
+                                <p class=""><span class="text-lg font-semibold">Type: </span>@(membership.Type)</p>
+                                <p class=""><span class="text-lg font-semibold">Duration: </span>@(membership.Duration)</p>
+                                <p class=""><span class="text-lg font-semibold">Price: </span>@(membership.Price)₺</p>
+                                <form action="memberships/subscribe/@(membership.Id)" method="GET">
+                                    <button type="submit" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                                    hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Subscribe</button>
+                                </form>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </section>
     </section>
     
-    <!-- Membership Packages Section -->
-    <section class="container mx-auto my-12 px-6">
-        <h2 class="text-3xl font-bold text-center mb-6">Memberships</h2>
-        <div id="memberships" class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        </div>
-    </section>
-    
-
-<script src="~/Scripts/Memberships.js"></script>
 </body>
 </html>

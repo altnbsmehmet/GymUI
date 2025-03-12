@@ -7,72 +7,55 @@
     <title>@ViewData["Title"] - Gym</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <!-- Hero Section -->
-    <section class="bg-sky-600 text-white text-center py-6">
-        <h1 class="text-4xl font-bold">Gym name...</h1>
-        <div class="mt-4 flex justify-center items-center gap-4">
-            <form asp-action="GetHomePage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Home</button>
-            </form>
-            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Memberships</button>
-            </form>
-            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Trainers</button>
-            </form>
-            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
-                <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Gallery</button>
-            </form>
-            <div class="ml-16 flex justify-center items-center gap-4">
-                <form asp-action="GetSignInPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign In</button>
-                </form>
-                <form asp-action="GetSignUpPage" asp-controller="Page" method="GET">
-                    <button type="submit" class="bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200">Sign Up</button>
-                </form>
-                <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
-                    <button type="submit" class="w-12 h-12 bg-white text-black text-xs p-2 rounded-full hover:bg-gray-200">Profile</button>
-                </form>
-            </div>
-        </div>
-    </section>
+
+@await Html.PartialAsync("UserHero")
 
     <!-- Services Section -->
-    <section class="container mx-auto my-12 px-6">
-        <h2 class="text-3xl font-bold text-center mb-6">Our Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-semibold">Cardio</h3>
-                <p class="text-gray-600 mt-2">Cardio workouts with modern equipment.</p>
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <p class="text-xl text-[#00316E] font-bold mb-6">Services</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2">
+                    <p class="text-lg font-semibold mb-2">Cardio</p>
+                    <p class="text-gray-600">Cardio workouts with modern equipment.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2">
+                    <p class="text-lg font-semibold mb-2">Weight Training</p>
+                    <p class="text-gray-600">Build strength with professional trainers.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2">
+                    <p class="text-lg font-semibold mb-2">Pool</p>
+                    <p class="text-gray-600">Enjoy swimming in a temperature-controlled pool.</p>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-semibold">Weight Training</h3>
-                <p class="text-gray-600 mt-2">Build strength with professional trainers.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-semibold">Group Classes</h3>
-                <p class="text-gray-600 mt-2">Yoga, pilates, and more.</p>
-            </div>
-        </div>
+        </section>        
     </section>
 
-    <!-- Communication Section -->
-    <section class="bg-gray-200 py-12 text-center">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h2 class="text-3xl font-bold text-center mb-6">Contact</h2>
-                <p>Communication Info...</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h2 class="text-3xl font-bold text-center mb-6">Location</h2>
-                <p>Address...</p>
-            </div>
-        </div>
-    </section
 
-<script src="~/Scripts/EventListeners.js"></script>
-<script src="~/Scripts/Utilities.js"></script>
+    <!-- Communication & Location -->
+    <section class="">
+        <section class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2">
+                    <h2 class="text-xl font-bold text-center mb-2">Contact</h2>
+                    <p class="text-gray-600">Communication Info...</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border
+                flex flex-col justify-center items-center gap-2">
+                    <h2 class="text-xl font-bold text-center mb-2">Location</h2>
+                    <p class="text-gray-600">Address...</p>
+                </div>
+            </div>
+        </section        
+    </section>
+
+
+
 </body>
 </html>

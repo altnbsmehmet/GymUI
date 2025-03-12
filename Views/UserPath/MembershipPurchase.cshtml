@@ -1,0 +1,49 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model MembershipViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    
+    
+@await Html.PartialAsync("UserHero")
+    
+    <!-- Membership Packages Section -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <p class="text-xl font-bold text-[#00316E] mb-4">Subscribe</p>
+                @if(Model.Message != null) {
+                    <p class="text-red-500">@(Model.Message)</p>
+                }            
+            </div>
+            @if(Model.Membership != null) {
+                <form asp-action="Subscribe" asp-controller="Subscription" method="POST"
+                class="flex flex-col justify-center items-center gap-4">
+                    <div class="flex justify-center items-center gap-4">
+                        <p>@(Model.Membership.Type)</p>
+                        <p>|</p>
+                        <p>@(Model.Membership.Duration) Months</p>
+                        <p>|</p>
+                        <p>@(Model.Membership.Price)₺</p>
+                    </div>
+                    <input type="number" placeholder="card number..." class="w-48 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" placeholder="card owner..." class="w-48 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" name="membershipDuration" class="hidden" value="@(Model.Membership.Duration)">
+                    <input type="text" name="membershipId" class="hidden" value="@(Model.Membership.Id)">
+                    <button type="submit" class="py-1 px-4 bg-[#41AB5D] text-white border-2 border-white rounded-full 
+                    hover:bg-white hover:text-[#41AB5D] hover:border-[#41AB5D]">Subscribe</button>
+                </form>
+            }
+        </section>        
+    </section>
+
+    
+
+</body>
+</html>

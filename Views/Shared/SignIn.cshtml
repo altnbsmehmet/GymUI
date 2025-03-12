@@ -11,8 +11,9 @@
 <body class="h-full">
 
     <div class="h-[60%] flex flex-col items-center justify-center gap-4">
-        <form id="signInForm" class="flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-md">
-            <h1 class="text-xl font-bold">Nutrient Tracking App</h1>
+        <form asp-action="SignIn" asp-controller="User" method="POST"
+            class="w-[400px] flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-md">
+            <h1 class="text-xl font-bold">Sign In</h1>
             <input type="text" name="userName" placeholder="username..." 
                    class="border p-2 rounded w-64" />
             <input type="password" name="password" placeholder="password..." 
@@ -29,6 +30,5 @@
         </form>
     </div>
 
-<script src="~/Scripts/SignIn.js"></script>
 </body>
 </html>

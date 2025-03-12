@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IL+JUTD5cytU3IA63VU/cs6J9DG6lmaek+9RlGq5vjU=",
+  "Hash": "WYvG5uHZoZNlHwu1y1ih+padJ6ORid3Qy3YJVXYvkX4=",
   "Source": "UI",
   "BasePath": "_content/UI",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/EventListeners.js",
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminEmployees.js",
       "SourceId": "UI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
       "BasePath": "_content/UI",
-      "RelativePath": "Scripts/EventListeners.js",
+      "RelativePath": "Scripts/AdminEmployees.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,15 +33,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Scripts/EventListeners.js"
+      "OriginalItemSpec": "wwwroot/Scripts/AdminEmployees.js"
     },
     {
-      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Memberships.js",
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminGallery.js",
       "SourceId": "UI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
       "BasePath": "_content/UI",
-      "RelativePath": "Scripts/Memberships.js",
+      "RelativePath": "Scripts/AdminGallery.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,7 +52,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Scripts/Memberships.js"
+      "OriginalItemSpec": "wwwroot/Scripts/AdminGallery.js"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/AdminMemberships.js",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Scripts/AdminMemberships.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Scripts/AdminMemberships.js"
     },
     {
       "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Profile.js",
@@ -74,12 +93,12 @@
       "OriginalItemSpec": "wwwroot/Scripts/Profile.js"
     },
     {
-      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/SignIn.js",
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg",
       "SourceId": "UI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
       "BasePath": "_content/UI",
-      "RelativePath": "Scripts/SignIn.js",
+      "RelativePath": "Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,15 +109,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Scripts/SignIn.js"
+      "OriginalItemSpec": "wwwroot/Uploads/582bfc50-eebe-4d1d-962d-45c0c28cc4d7.jpeg"
     },
     {
-      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Trainers.js",
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/882c47fc-4ad8-416f-8b14-4f64e7733615.jpg",
       "SourceId": "UI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
       "BasePath": "_content/UI",
-      "RelativePath": "Scripts/Trainers.js",
+      "RelativePath": "Uploads/882c47fc-4ad8-416f-8b14-4f64e7733615.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,15 +128,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Scripts/Trainers.js"
+      "OriginalItemSpec": "wwwroot/Uploads/882c47fc-4ad8-416f-8b14-4f64e7733615.jpg"
     },
     {
-      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Scripts/Utilities.js",
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/993a0adf-ddd2-4b10-954d-24b8f4243454.jpg",
       "SourceId": "UI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
       "BasePath": "_content/UI",
-      "RelativePath": "Scripts/Utilities.js",
+      "RelativePath": "Uploads/993a0adf-ddd2-4b10-954d-24b8f4243454.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +147,64 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Scripts/Utilities.js"
+      "OriginalItemSpec": "wwwroot/Uploads/993a0adf-ddd2-4b10-954d-24b8f4243454.jpg"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/a00c28dc-acdf-4ca1-8094-e1700b9b018b.jpg",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Uploads/a00c28dc-acdf-4ca1-8094-e1700b9b018b.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Uploads/a00c28dc-acdf-4ca1-8094-e1700b9b018b.jpg"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/a819731d-90a7-42d7-a37e-bf69694d9fea.jpeg",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Uploads/a819731d-90a7-42d7-a37e-bf69694d9fea.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Uploads/a819731d-90a7-42d7-a37e-bf69694d9fea.jpeg"
+    },
+    {
+      "Identity": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/Uploads/aa9e6200-f4e6-48fb-9902-9230d1dd2737.jpeg",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/mehmetaltinbas/Desktop/Gym App/UI/UI/wwwroot/",
+      "BasePath": "_content/UI",
+      "RelativePath": "Uploads/aa9e6200-f4e6-48fb-9902-9230d1dd2737.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Uploads/aa9e6200-f4e6-48fb-9902-9230d1dd2737.jpeg"
     }
   ]
 }

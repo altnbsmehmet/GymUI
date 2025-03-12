@@ -1,0 +1,109 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model EmployeesViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    
+
+@await Html.PartialAsync("AdminHero")
+    
+    <!-- Employees -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <div class="flex justify-center items-center gap-2">
+                    <p class="text-xl font-bold text-[#00316E]">Employees</p>
+                    <button id="employeeCreationButton" class="text-2xl font-bold text-[#00316E]">+</button>
+                </div>
+                @if(Model.Message != null) {
+                    <p class="text-red-900 text-center">@(Model.Message)</p>
+                }
+            </div>
+            <div id="trainers" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                @if(Model.Employees != null) {
+                    @foreach(var employee in Model.Employees) {
+                        <div class="bg-white p-6 rounded-2xl shadow-md border
+                        flex flex-col justify-center items-center gap-2">
+                            <img src="@employee.User.ProfilePhoto" class="w-24 h-24 rounded-full object-cover" />
+                            <p class="text-lg font-semibold">@employee.User.FirstName @employee.User.LastName</p>
+                            <p class="text-sm"><span class="font-semibold">UserName:</span> @(employee.User.UserName)</p>
+                            <p class=""><span class="font-semibold">Position:</span> @(employee.Position)</p>
+                            <p class=""><span class="font-semibold">Salary: </span>@(employee.Salary)</p>
+                            <button data-user-id="@(employee.User.Id)" type="submit" class="employeeUpdateButton py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                            hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Update</button>
+                            <button data-user-id="@(employee.User.Id)" type="submit" class="employeeDeletionButton py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+                            hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Delete</button>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+    </section>
+    
+
+    <!-- Employee Creation Form (Hidden) -->
+    <form asp-action="CreateEmployee" asp-controller="Admin" method="POST" enctype="multipart/form-data"
+            id="employeeCreationForm" class="hidden absolute w-[250px] flex flex-col items-center justify-center bg-white gap-2 p-4 border rounded-lg shadow-md">
+            <h1 class="text-sm font-bold text-gray-700">Sign Up an Employee</h1>
+            <input type="text" name="userName" placeholder="Username..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input type="password" name="password" placeholder="Password..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input type="text" name="firstName" placeholder="Firstname..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input type="text" name="lastName" placeholder="Lastname..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input type="text" name="position" placeholder="Position..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input type="number" name="salary" placeholder="Salary..." 
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <div class="text-sm flex justify-center items-center gap-1">
+                <label class="text-xs">ProfilePhoto:</label>
+                <input id="fileInput" type="file" name="profilePhoto" 
+                class="w-24 scale-75 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400
+                appearance-none text-xs file:text-xs file:mr-2 file:py-1 file:px-2 file:border file:border-gray-300 file:rounded-md" />
+                <span id="fileName" class="text-xs"></span>
+            </div>
+            <button type="submit"class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+            hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Sign Up</button>
+    </form>
+
+    <!-- Employee Update Form (Hidden) -->
+    <form asp-action="UpdateEmployee" asp-controller="Admin" method="POST"
+        id="employeeUpdateForm" class="hidden absolute w-[250px] flex flex-col items-center justify-center bg-white gap-2 p-4 border rounded-lg shadow-md">
+        <input id="userIdInputUpdate" class="hidden" type="text" name="userId" value="">
+        <input type="text" name="userName" placeholder="Username..."
+                class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" name="firstName" placeholder="Firstname..."
+            class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" name="lastName" placeholder="Lastname..."
+            class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="text" name="position" placeholder="Position..."
+            class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="number" name="salary" placeholder="Salary..."
+            class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <button type="submit"
+            class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+            hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Update</button>
+    </form>
+
+    <!-- Employee Deletion Form (Hidden) -->
+    <form asp-action="DeleteEmployee" asp-controller="Admin" method="POST"
+        id="employeeDeletionForm" class="hidden absolute w-[200px] flex items-center justify-center bg-white gap-2 p-4 border rounded-lg shadow-md">
+        <input id="userIdInputDelete" class="hidden" type="text" name="userId" value="">
+        <button type="button" class="cancelEmployeeDeletionButton py-1 px-4 bg-black text-white border-2 border-white rounded-full 
+        hover:bg-white hover:text-black hover:border-black">Cancel</button>
+        <button type="submit" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 
+        hover:bg-white hover:text-[#D40D12] hover:border-[#D40D12]">Delete</button>
+    </form>
+
+
+<script src="~/Scripts/AdminEmployees.js"></script>
+</body>
+</html>

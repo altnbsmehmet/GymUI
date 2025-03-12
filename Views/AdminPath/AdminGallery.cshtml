@@ -1,0 +1,63 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model GalleryViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    
+
+@await Html.PartialAsync("AdminHero")
+    
+    <!-- Gallery -->
+    <section class="bg-gray-100">
+        <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center gap-1 mb-4">
+                <div class="flex justify-center items-center gap-2">
+                    <h2 class="text-xl font-bold text-[#00316E]">Gallery</h2>
+                    <button id="imageCreationButton" class="text-2xl font-bold text-[#00316E]">+</button>                    
+                </div>
+                @if(Model.Message != null) {
+                    <p class="text-red-900 text-center">@(Model.Message)</p>
+                }
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                @foreach(var image in Model.Images) {
+                    <div class="relative group"> 
+                        <img src="~/Uploads/@image" class="rounded-lg shadow-md w-full h-64 object-cover">
+                        <form asp-controller="Admin" asp-action="DeleteGalleryImage" method="post"
+                            class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded opacity-50 group-hover:opacity-100 transition-opacity">
+                            <input type="hidden" name="imageName" value="@image" />
+                            <button type="submit">X</button>
+                        </form>  
+                    </div>
+                }
+            </div>
+        </section>        
+    </section>
+
+
+    <!-- Image Creation Form -->
+    <form asp-action="CreateGalleryImage" asp-controller="Admin" method="POST" enctype="multipart/form-data"
+        id="imageCreationForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
+        flex flex-col justify-center items-center gap-2">
+        <div class="text-sm flex justify-center items-center gap-1">
+            <label class="text-xs">Image:</label>
+            <input id="fileInput" type="file" name="image" 
+            class="w-24 scale-75 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400
+            appearance-none text-xs file:text-xs file:mr-2 file:py-1 file:px-2 file:border file:border-gray-300 file:rounded-md" />
+            <span id="fileName" class="text-xs"></span>
+        </div>
+        <button type="submit"
+        class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+        hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Create</button>
+    </form>
+    
+
+<script src="~/Scripts/AdminGallery.js"></script>
+</body>
+</html>

@@ -1,6 +1,4 @@
-using Data;
-
 public class TrainersViewModel : ViewModelBase
 {
-    public List<Employee> Trainers { get; set; }
+    public List<EmployeeDto> Trainers { get; set; }
 }
