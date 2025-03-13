@@ -6,10 +6,12 @@ public class UserController : Controller
 {
     private readonly IUserService _userService;
     private readonly IHttpClientService _httpClientService;
-    public UserController(IUserService userService, IHttpClientService httpClientService)
+    private readonly string _apiBaseUrl;
+    public UserController(IUserService userService, IHttpClientService httpClientService, IConfiguration configuration)
     {
         _userService = userService;
         _httpClientService = httpClientService;
+        _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
     }
 
     [HttpPost("signup")]
@@ -33,29 +35,29 @@ public class UserController : Controller
                 formData.Add(fileContent, "ProfilePhoto", signUpDto.ProfilePhoto.FileName);
             }
 
-            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>("http://localhost:5410/api/user/signup", formData);
+            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"{_apiBaseUrl}user/signup", formData);
 
             if (!userSignUpResponse.IsSuccess) {
                 viewModel.Message = userSignUpResponse.Message;
-                return View("~/Views/UserPath/SignUp.cshtml", viewModel);
+                return View("~/Views/UserPath/Home.cshtml", viewModel);
             }
 
             return RedirectToAction("GetSignInPage", "Page");
         } catch (Exception e) {
             viewModel.Message = e.Message;
-            return View("~/Views/UserPath/SignUp.cshtml", viewModel);
+            return View("~/Views/UserPath/Home.cshtml", viewModel);
         }
     }
 
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
-        var signInResponse = await _httpClientService.PostAsync<SignInResponse>("http://localhost:5410/api/user/signin", signInDto);
+        var signInResponse = await _httpClientService.PostAsync<SignInResponse>($"{_apiBaseUrl}user/signin", signInDto);
 
         if (!signInResponse.IsSuccess) {
             var viewModel = new ViewModelBase();
             viewModel.Message = signInResponse.Message;
-            return View("SignIn", viewModel);
+            return View("~/Views/UserPath/Home.cshtml", viewModel);
         }
 
         Response.Cookies.Append("jwt", signInResponse.Token, new CookieOptions {
@@ -73,7 +75,7 @@ public class UserController : Controller
     [HttpGet("signout")]
     public async Task<IActionResult> SignOut()
     {
-        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>("http://localhost:5410/api/user/signout");
+        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>($"{_apiBaseUrl}user/signout");
 
         Response.Cookies.Delete("jwt");
         
@@ -84,13 +86,13 @@ public class UserController : Controller
     [HttpPost("update")]
     public async Task<IActionResult> Update(SignUpDto signUpDto)
     {
-        var userResponse = await _httpClientService.GetAsync<GetUserResponse>("http://localhost:5410/api/user/getcurrentuser");
+        var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"{_apiBaseUrl}user/getcurrentuser");
 
         var userId = userResponse.User.Id;
 
         signUpDto.Role = "Member";
         
-        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"http://localhost:5410/api/user/update/{userId}", signUpDto);
+        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"{_apiBaseUrl}user/update/{userId}", signUpDto);
 
         TempData["Message"] = userPatchResponse.Message;
         return RedirectToAction("GetProfilePage", "Page");

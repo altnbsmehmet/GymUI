@@ -9,10 +9,12 @@ public class SubscriptionController : Controller
 {
     private readonly ISubscriptionService _subscriptionService;
     private readonly IHttpClientService _httpClientService;
-    public SubscriptionController(ISubscriptionService subscriptionService, IHttpClientService httpClientService)
+    private readonly string _apiBaseUrl;
+    public SubscriptionController(ISubscriptionService subscriptionService, IHttpClientService httpClientService, IConfiguration configuration)
     {
         _subscriptionService = subscriptionService;
         _httpClientService = httpClientService;
+        _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
     }
 
     [HttpPost("subscribe")]
@@ -25,7 +27,7 @@ public class SubscriptionController : Controller
             Status = "Active"
         };
 
-        var subscriptionResponse = await _httpClientService.PostAsync<ResponseBase>($"http://localhost:5410/api/subscription/create/{membershipId}", subscriptionDto);
+        var subscriptionResponse = await _httpClientService.PostAsync<ResponseBase>($"{_apiBaseUrl}subscription/create/{membershipId}", subscriptionDto);
 
         if (subscriptionResponse.IsSuccess) {
             return RedirectToAction("GetProfilePage", "Page");
@@ -39,7 +41,7 @@ public class SubscriptionController : Controller
     [HttpGet("cancel/{id}")]
     public async Task<IActionResult> Cancel(int id)
     {
-        var subscriptionDeletionRespons = await _httpClientService.DeleteAsync<ResponseBase>($"http://localhost:5410/api/subscription/delete/{id}");
+        var subscriptionDeletionRespons = await _httpClientService.DeleteAsync<ResponseBase>($"{_apiBaseUrl}subscription/delete/{id}");
 
         TempData["Message"] = subscriptionDeletionRespons.Message;
         return RedirectToAction("GetProfilePage", "Page");
