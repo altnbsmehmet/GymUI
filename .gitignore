@@ -48,3 +48,4 @@ appsettings.json
 appsettings.Development.json
 Properties/
 *.code-workspace
+.DS_Store

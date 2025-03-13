@@ -1,9 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
-
-builder.WebHost.UseUrls("http://0.0.0.0:5420"); 
+builder.Configuration.AddEnvironmentVariables();
+builder.WebHost.UseUrls("http://0.0.0.0:5420");
 
 var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"];
-Console.WriteLine($"[DEBUG] API Base URL: {apiBaseUrl}");
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor(); 
