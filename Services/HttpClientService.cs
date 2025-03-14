@@ -47,6 +47,7 @@ public class HttpClientService : IHttpClientService
     private async Task<T> MakeRequestAsync<T>(Func<Task<HttpResponseMessage>> requestFunc) where T : ResponseBase, new()
     {
         AddAuthorizationHeader();
+        Console.WriteLine($"\n\n[DEBUG] Gönderilen Authorization Header: {_httpClient.DefaultRequestHeaders.Authorization?.ToString() ?? "YOK"}\n\n");
         HttpResponseMessage response = null;
         try
         {
