@@ -7,12 +7,10 @@ public class AdminController : Controller
 {
     private readonly IAdminService _adminService;
     private readonly IHttpClientService _httpClientService;
-    private readonly string _apiBaseUrl;
-    public AdminController(IAdminService adminService, IHttpClientService httpClientService, IConfiguration configuration)
+    public AdminController(IAdminService adminService, IHttpClientService httpClientService)
     {
         _adminService = adminService;
         _httpClientService = httpClientService;
-        _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
     }
 
     [HttpPost("membership/create")]
@@ -30,7 +28,7 @@ public class AdminController : Controller
     [HttpGet("membership/toggleactivation/{id}")]
     public async Task<IActionResult> DeactivateMembership(int id)
     {
-        var deactivationResponse = await _httpClientService.GetAsync<ResponseBase>($"{_apiBaseUrl}membership/toggleactivation/{id}");
+        var deactivationResponse = await _httpClientService.GetAsync<ResponseBase>($"membership/toggleactivation/{id}");
         TempData["Message"] = deactivationResponse.Message;
         return RedirectToAction("GetAdminMembershipsPage", "Page");
     }
@@ -57,7 +55,7 @@ public class AdminController : Controller
                 formData.Add(fileContent, "ProfilePhoto", signUpDto.ProfilePhoto.FileName);
             }
 
-            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"{_apiBaseUrl}user/signup", formData);
+            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
 
             TempData["Message"] = userSignUpResponse.Message;
             return RedirectToAction("GetAdminEmployeesPage", "Page");
@@ -71,7 +69,7 @@ public class AdminController : Controller
     public async Task<IActionResult> UpdateEmployee(SignUpDto signUpDto, string userId)
     {
         signUpDto.Role = "Employee";
-        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"{_apiBaseUrl}user/update/{userId}", signUpDto);
+        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"user/update/{userId}", signUpDto);
 
         TempData["Message"] = userPatchResponse.Message;
         return RedirectToAction("GetAdminEmployeesPage", "Page");
@@ -80,7 +78,7 @@ public class AdminController : Controller
     [HttpPost("employee/delete")]
     public async Task<IActionResult> DeleteEmployee(string userId)
     {
-        var userDeletionResponse = await _httpClientService.DeleteAsync<ResponseBase>($"{_apiBaseUrl}user/delete/{userId}");
+        var userDeletionResponse = await _httpClientService.DeleteAsync<ResponseBase>($"user/delete/{userId}");
 
         TempData["Message"] = userDeletionResponse.Message;
         return RedirectToAction("GetAdminEmployeesPage", "Page");

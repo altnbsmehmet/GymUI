@@ -6,12 +6,10 @@ public class UserController : Controller
 {
     private readonly IUserService _userService;
     private readonly IHttpClientService _httpClientService;
-    private readonly string _apiBaseUrl;
-    public UserController(IUserService userService, IHttpClientService httpClientService, IConfiguration configuration)
+    public UserController(IUserService userService, IHttpClientService httpClientService)
     {
         _userService = userService;
         _httpClientService = httpClientService;
-        _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
     }
 
     [HttpPost("signup")]
@@ -35,7 +33,7 @@ public class UserController : Controller
                 formData.Add(fileContent, "ProfilePhoto", signUpDto.ProfilePhoto.FileName);
             }
 
-            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"{_apiBaseUrl}user/signup", formData);
+            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
 
             if (!userSignUpResponse.IsSuccess) {
                 viewModel.Message = userSignUpResponse.Message;
@@ -52,7 +50,7 @@ public class UserController : Controller
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
-        var signInResponse = await _httpClientService.PostAsync<SignInResponse>($"{_apiBaseUrl}user/signin", signInDto);
+        var signInResponse = await _httpClientService.PostAsync<SignInResponse>($"user/signin", signInDto);
 
         if (!signInResponse.IsSuccess) {
             var viewModel = new ViewModelBase();
@@ -75,7 +73,7 @@ public class UserController : Controller
     [HttpGet("signout")]
     public async Task<IActionResult> SignOut()
     {
-        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>($"{_apiBaseUrl}user/signout");
+        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>($"user/signout");
 
         Response.Cookies.Delete("jwt");
         
@@ -86,13 +84,13 @@ public class UserController : Controller
     [HttpPost("update")]
     public async Task<IActionResult> Update(SignUpDto signUpDto)
     {
-        var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"{_apiBaseUrl}user/getcurrentuser");
+        var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"user/getcurrentuser");
 
         var userId = userResponse.User.Id;
 
         signUpDto.Role = "Member";
         
-        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"{_apiBaseUrl}user/update/{userId}", signUpDto);
+        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"user/update/{userId}", signUpDto);
 
         TempData["Message"] = userPatchResponse.Message;
         return RedirectToAction("GetProfilePage", "Page");

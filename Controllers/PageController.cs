@@ -8,12 +8,10 @@ public class PageController : Controller
 {
     private readonly IPageService _pageService;
     private readonly IHttpClientService _httpClientService;
-    private readonly string _apiBaseUrl;
-    public PageController(IPageService pageService, IHttpClientService httpClientService, IConfiguration configuration)
+    public PageController(IPageService pageService, IHttpClientService httpClientService)
     {
         _pageService = pageService;
         _httpClientService = httpClientService;
-        _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
     }
 
     [HttpGet]
@@ -24,10 +22,8 @@ public class PageController : Controller
 
     [HttpGet("memberships")]
     public async Task<IActionResult> GetMembershipsPage()
-    {
-        Console.WriteLine($"[DEBUG] Using API Base URL: {_apiBaseUrl}");
-        
-        var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>($"{_apiBaseUrl}membership/getall");
+    {   
+        var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>($"membership/getall");
 
         var viewModel = new MembershipsViewModel();
         viewModel.Memberships = membershipsResponse.Memberships;
@@ -40,10 +36,10 @@ public class PageController : Controller
     [HttpGet("memberships/subscribe/{id}")]
     public async Task<IActionResult> GetMembershipPurchasePage(int id)
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
 
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Member") {
-            var membershipResponse = await _httpClientService.GetAsync<GetMembershipResponse>($"{_apiBaseUrl}membership/getbyid/{id}");
+            var membershipResponse = await _httpClientService.GetAsync<GetMembershipResponse>($"membership/getbyid/{id}");
 
             var viewModel = new MembershipViewModel();
             viewModel.Membership = membershipResponse.Membership;
@@ -61,7 +57,7 @@ public class PageController : Controller
     [HttpGet("trainers")]
     public async Task<IActionResult> GetTrainersPage()
     {
-        var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"{_apiBaseUrl}employee/getall/Trainer");
+        var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"employee/getall/Trainer");
 
         var viewModel = new TrainersViewModel();
         viewModel.Trainers = employeeResponse.Employees;
@@ -83,19 +79,19 @@ public class PageController : Controller
     [HttpGet("profile")]
     public async Task<IActionResult> GetProfilePage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
 
         var viewModel = new ProfileViewModel();
 
         if (authorizationResponse.IsSuccess) {
-            var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"{_apiBaseUrl}user/getcurrentuser");
+            var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"user/getcurrentuser");
 
             if (!userResponse.IsSuccess) {
                 viewModel.Message = userResponse.Message;
                 return View("~/Views/UserPath/Profile.cshtml", viewModel);
             }
 
-            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>($"{_apiBaseUrl}subscription/getallbymemberid");
+            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>($"subscription/getallbymemberid");
             
             viewModel.User = userResponse.User;
             viewModel.Employee = userResponse.Employee;
@@ -115,7 +111,7 @@ public class PageController : Controller
     [HttpGet("adminpanel/home")]
     public async Task<IActionResult> GetAdminHomePage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
             return View("~/Views/AdminPath/AdminHome.cshtml");            
         }
@@ -126,9 +122,9 @@ public class PageController : Controller
     [HttpGet("adminpanel/memberships")]
     public async Task<IActionResult> GetAdminMembershipsPage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
-            var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>($"{_apiBaseUrl}membership/getall");
+            var membershipsResponse = await _httpClientService.GetAsync<GetMembershipsResponse>($"membership/getall");
 
             var viewModel = new MembershipsViewModel();
             viewModel.Memberships = membershipsResponse.Memberships;
@@ -144,9 +140,9 @@ public class PageController : Controller
     [HttpGet("adminpanel/employees")]
     public async Task<IActionResult> GetAdminEmployeesPage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
-            var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"{_apiBaseUrl}employee/getall");
+            var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"employee/getall");
 
             var viewModel = new EmployeesViewModel();
             viewModel.Employees = employeeResponse.Employees;
@@ -161,7 +157,7 @@ public class PageController : Controller
     [HttpGet("adminpanel/gallery")]
     public async Task<IActionResult> GetAdminGalleryPage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
             var viewModel = new GalleryViewModel();
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
@@ -179,9 +175,9 @@ public class PageController : Controller
     [HttpGet("adminpanel/profile")]
     public async Task<IActionResult> GetAdminProfilePage()
     {
-        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"{_apiBaseUrl}user/authorizeuser");
+        var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
-            var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"{_apiBaseUrl}user/getcurrentuser");
+            var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"user/getcurrentuser");
 
             var viewModel = new ProfileViewModel();
 
@@ -190,7 +186,7 @@ public class PageController : Controller
                 return View("~/Views/AdminPath/AdminProfile.cshtml", viewModel);
             }
 
-            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>($"{_apiBaseUrl}subscription/getallbymemberid");
+            var subscriptionsResponse = await _httpClientService.GetAsync<GetSubscriptionsResponse>($"subscription/getallbymemberid");
             
             viewModel.User = userResponse.User;
             viewModel.Employee = userResponse.Employee;

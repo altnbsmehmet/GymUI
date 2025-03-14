@@ -1,10 +1,10 @@
 # Step 1: Build the UI project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
-WORKDIR /app
+WORKDIR /app/UI
 
 # Copy solution and project files
-COPY ["UI.sln", "UI/"]
-COPY ["UI/UI.csproj", "UI/"]
+COPY UI.sln .
+COPY UI.csproj .
 
 WORKDIR /app/UI
 
