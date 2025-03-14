@@ -18,6 +18,7 @@ public class HttpClientService : IHttpClientService
     private void AddAuthorizationHeader()
     {
         var jwtToken = _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
+        Console.WriteLine($"\n\n[DEBUG] Çerezden Alınan JWT: {jwtToken ?? "YOK"}\n\n");
         if (!string.IsNullOrEmpty(jwtToken)) _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
     }
 
