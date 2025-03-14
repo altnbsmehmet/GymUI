@@ -6,10 +6,14 @@ public class UserController : Controller
 {
     private readonly IUserService _userService;
     private readonly IHttpClientService _httpClientService;
-    public UserController(IUserService userService, IHttpClientService httpClientService)
+    private readonly bool _isCookieSecure;
+    private readonly string _cookieSameSiteMode;
+    public UserController(IUserService userService, IHttpClientService httpClientService, IConfiguration configuration)
     {
         _userService = userService;
         _httpClientService = httpClientService;
+        _isCookieSecure = bool.Parse(Environment.GetEnvironmentVariable("COOKIE_SECURE") ?? configuration["CookieSettings:Secure"]);
+        _cookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? configuration["CookieSettings:SameSiteMode"];
     }
 
     [HttpPost("signup")]
@@ -60,8 +64,8 @@ public class UserController : Controller
 
         Response.Cookies.Append("jwt", signInResponse.Token, new CookieOptions {
             HttpOnly = true,
-            Secure = false,
-            SameSite = SameSiteMode.Lax,
+            Secure = _isCookieSecure,
+            SameSite = Enum.Parse<SameSiteMode>(_cookieSameSiteMode, true),
             Expires = DateTime.UtcNow.AddHours(1),
         });
 

@@ -2,8 +2,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 builder.WebHost.UseUrls("http://0.0.0.0:5420");
 
-var apiUrl = Environment.GetEnvironmentVariable("API_URL") ?? builder.Configuration["ApiSettings:LocalhostUrl"];
-Console.WriteLine($"\n\n{apiUrl}\n\n");
+var _apiUrl = Environment.GetEnvironmentVariable("API_URL") ?? builder.Configuration["ApiSettings:LocalhostUrl"];
+var _isCookieSecure = bool.Parse(Environment.GetEnvironmentVariable("COOKIE_SECURE") ?? builder.Configuration["CookieSettings:Secure"]);
+var _cookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? builder.Configuration["CookieSettings:SameSiteMode"];
+Console.WriteLine($"\n\n\tEnvironmental Variables\nApiUrl --> {_apiUrl}\nisCookieSecure --> {_isCookieSecure}\n CookieSameSiteMode --> {_cookieSameSiteMode}\n\n");
+
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor(); 
