@@ -55,6 +55,7 @@ public class UserController : Controller
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
         var signInResponse = await _httpClientService.PostAsync<SignInResponse>($"user/signin", signInDto);
+        Console.WriteLine($"\n\n[DEBUG] signInResponse\n{JsonConvert.SerializeObject(signInResponse, Formatting.Indented)}\n\n");
 
         if (!signInResponse.IsSuccess) {
             var viewModel = new ViewModelBase();
