@@ -1,17 +1,27 @@
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
+using Polly;
+using Polly.Retry;
+using Polly.Extensions.Http;
+using System.Net;
 
 public class HttpClientService : IHttpClientService
 {
     private readonly HttpClient _httpClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly string _apiUrl;
+    private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
     public HttpClientService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
     {
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
         _apiUrl = EnvironmentVariables.ApiUrl;
         _httpClient.Timeout = TimeSpan.FromMinutes(1);
+
+        _retryPolicy = HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .OrResult(msg => msg.StatusCode == HttpStatusCode.ServiceUnavailable) // 503 için tekrar dene
+            .WaitAndRetryAsync(8, retryAttempt => TimeSpan.FromSeconds(5)); // 2 saniye arayla 3 kez tekrar dene
     }
 
     private string BuildUrl(string endpoint) => $"{_apiUrl}{endpoint}";
