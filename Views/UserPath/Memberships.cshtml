@@ -22,7 +22,7 @@
                     <p class="text-sm text-red-500 mt-2">@(Model.Message)</p>
                 }                    
             </div>
-            <div id="memberships" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div id="memberships" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 @if(Model.Memberships != null) {
                     foreach(var membership in Model.Memberships) {
                         if((bool)membership.IsActive) {

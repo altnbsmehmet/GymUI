@@ -1,26 +1,27 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <section class="text-center py-3">
-    <div class="flex justify-center items-center gap-4">
+    <div class="flex justify-center items-center gap-1 
+    sm:gap-3 lg:gap-4">
         <form asp-action="GetHomePage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] 
-            text-[#00316E] text-lg font-bold">Gym</button>
+            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] 
+            text-[#00316E] sm:text-lg font-bold">Gym</button>
         </form>
         <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Memberships</button>
+            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Memberships</button>
         </form>
         <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Trainers</button>
+            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Trainers</button>
         </form>
         <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Gallery</button>
+            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Gallery</button>
         </form>
-        <div class="ml-16 flex justify-center items-center gap-4">
+        <div class="flex justify-center items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4">
             <button id="signInButton0" type="submit"
-            class="py-1 px-4 border-2 border-white rounded-full hover:border-[#00316E] text-sm">Sign In</button>
+            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">SignIn</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
                 <button type="submit" 
                 class="w-12 h-12 text-xs p-2 border-2 border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
