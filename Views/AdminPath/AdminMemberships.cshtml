@@ -21,11 +21,9 @@
                     <p class="text-xl font-bold text-[#00316E]">Memberships</p>
                     <button id="membershipCreationButton" class="text-2xl font-bold text-[#00316E]">+</button>
                 </div>
-
                 @if(Model.Message != null) {
                     <p class="text-sm text-red-500">@(Model.Message)</p>
                 }
-                
             </div>
             <div id="memberships" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 @if(Model.Memberships != null) {

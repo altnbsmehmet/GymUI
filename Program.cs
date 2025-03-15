@@ -2,10 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 builder.WebHost.UseUrls("http://0.0.0.0:5420");
 
-var _apiUrl = Environment.GetEnvironmentVariable("API_URL") ?? builder.Configuration["ApiSettings:LocalhostUrl"];
-var _isCookieSecure = bool.Parse(Environment.GetEnvironmentVariable("COOKIE_SECURE") ?? builder.Configuration["CookieSettings:Secure"]);
-var _cookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? builder.Configuration["CookieSettings:SameSiteMode"];
-Console.WriteLine($"\n\n\tEnvironmental Variables\nApiUrl --> {_apiUrl}\nisCookieSecure --> {_isCookieSecure}\n CookieSameSiteMode --> {_cookieSameSiteMode}\n\n");
+EnvironmentVariables.ApiUrl = Environment.GetEnvironmentVariable("API_URL") ?? builder.Configuration["ApiSettings:LocalhostUrl"] ?? "";
+EnvironmentVariables.IsCookieSecure = bool.Parse(Environment.GetEnvironmentVariable("COOKIE_SECURE") ?? builder.Configuration["CookieSettings:Secure"] ?? "false");
+EnvironmentVariables.CookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? builder.Configuration["CookieSettings:SameSiteMode"] ?? "Lax";
+Console.WriteLine($"\n\n\tEnvironmental Variables\n" +
+    $"ApiUrl --> {EnvironmentVariables.ApiUrl}\n" +
+    $"isCookieSecure --> {EnvironmentVariables.IsCookieSecure}\n" +
+    $"CookieSameSiteMode --> {EnvironmentVariables.CookieSameSiteMode}\n\n");
 
 
 builder.Services.AddHttpClient();

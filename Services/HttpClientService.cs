@@ -10,7 +10,7 @@ public class HttpClientService : IHttpClientService
     {
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
-        _apiUrl = Environment.GetEnvironmentVariable("API_URL") ?? configuration["ApiSettings:LocalhostUrl"];
+        _apiUrl = EnvironmentVariables.ApiUrl;
     }
 
     private string BuildUrl(string endpoint) => $"{_apiUrl}{endpoint}";
@@ -18,7 +18,6 @@ public class HttpClientService : IHttpClientService
     private void AddAuthorizationHeader()
     {
         var jwtToken = _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
-        Console.WriteLine($"\n\n[DEBUG] Çerezden Alınan JWT: {jwtToken ?? "YOK"}\n\n");
         if (!string.IsNullOrEmpty(jwtToken)) _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
     }
 
@@ -47,7 +46,6 @@ public class HttpClientService : IHttpClientService
     private async Task<T> MakeRequestAsync<T>(Func<Task<HttpResponseMessage>> requestFunc) where T : ResponseBase, new()
     {
         AddAuthorizationHeader();
-        Console.WriteLine($"\n\n[DEBUG] Gönderilen Authorization Header: {_httpClient.DefaultRequestHeaders.Authorization?.ToString() ?? "YOK"}\n\n");
         HttpResponseMessage response = null;
         try
         {

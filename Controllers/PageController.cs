@@ -129,9 +129,9 @@ public class PageController : Controller
 
             var viewModel = new MembershipsViewModel();
             viewModel.Memberships = membershipsResponse.Memberships;
+
             string message = TempData["Message"] as string;
             if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
-
             return View("~/Views/AdminPath/AdminMemberships.cshtml", viewModel);            
         }
 
@@ -143,10 +143,10 @@ public class PageController : Controller
     {
         var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
-            var employeeResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"employee/getall");
+            var employeesResponse = await _httpClientService.GetAsync<GetEmployeesResponse>($"employee/getall");
 
             var viewModel = new EmployeesViewModel();
-            viewModel.Employees = employeeResponse.Employees;
+            viewModel.Employees = employeesResponse.Employees;
             string message = TempData["Message"] as string;
             if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
             return View("~/Views/AdminPath/AdminEmployees.cshtml", viewModel);            

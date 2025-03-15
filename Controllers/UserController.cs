@@ -12,8 +12,8 @@ public class UserController : Controller
     {
         _userService = userService;
         _httpClientService = httpClientService;
-        _isCookieSecure = bool.Parse(Environment.GetEnvironmentVariable("COOKIE_SECURE") ?? configuration["CookieSettings:Secure"]);
-        _cookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? configuration["CookieSettings:SameSiteMode"];
+        _isCookieSecure = EnvironmentVariables.IsCookieSecure;
+        _cookieSameSiteMode = EnvironmentVariables.CookieSameSiteMode;
     }
 
     [HttpPost("signup")]

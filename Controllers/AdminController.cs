@@ -14,8 +14,10 @@ public class AdminController : Controller
     }
 
     [HttpPost("membership/create")]
-    public async Task<IActionResult> CreateMembership()
+    public async Task<IActionResult> CreateMembership(MembershipDto membershipDto)
     {
+        var membershiCreationResponse = await _httpClientService.PostAsync<ResponseBase>($"membership/create", membershipDto);
+        TempData["Message"] = membershiCreationResponse.Message;
         return RedirectToAction("GetAdminMembershipsPage", "Page");
     }
 
