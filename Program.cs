@@ -8,6 +8,7 @@ EnvironmentVariables.IsCookieSecure = bool.Parse(Environment.GetEnvironmentVaria
 EnvironmentVariables.CookieSameSiteMode = Environment.GetEnvironmentVariable("COOKIE_SAME_SITE_MODE") ?? builder.Configuration["CookieSettings:SameSiteMode"] ?? "Lax";
 Console.WriteLine($"\n\n\tEnvironmental Variables\n" +
     $"ApiUrl --> {EnvironmentVariables.ApiUrl}\n" +
+    $"FrontendUrl --> {EnvironmentVariables.FrontendUrl}\n" +
     $"isCookieSecure --> {EnvironmentVariables.IsCookieSecure}\n" +
     $"CookieSameSiteMode --> {EnvironmentVariables.CookieSameSiteMode}\n\n");
 

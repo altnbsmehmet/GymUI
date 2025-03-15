@@ -20,7 +20,7 @@ public class HttpClientService : IHttpClientService
 
         _retryPolicy = HttpPolicyExtensions
             .HandleTransientHttpError()
-            .OrResult(msg => msg.StatusCode == HttpStatusCode.ServiceUnavailable) // 503 için tekrar dene
+            .OrResult(msg => msg.StatusCode == HttpStatusCode.BadGateway) // 503 için tekrar dene
             .WaitAndRetryAsync(8, retryAttempt => TimeSpan.FromSeconds(5)); // 2 saniye arayla 3 kez tekrar dene
     }
 
