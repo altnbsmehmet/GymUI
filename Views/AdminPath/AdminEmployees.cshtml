@@ -25,7 +25,7 @@
                     <p class="text-red-900 text-center">@(Model.Message)</p>
                 }
             </div>
-            <div id="trainers" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div id="trainers" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 @if(Model.Employees != null) {
                     @foreach(var employee in Model.Employees) {
                         <div class="bg-white p-6 rounded-2xl shadow-md border

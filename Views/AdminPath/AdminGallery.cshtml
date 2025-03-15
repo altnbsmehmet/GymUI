@@ -25,7 +25,7 @@
                     <p class="text-red-900 text-center">@(Model.Message)</p>
                 }
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 @foreach(var image in Model.Images) {
                     <div class="relative group"> 
                         <img src="~/Uploads/@image" class="rounded-lg shadow-md w-full h-64 object-cover">
