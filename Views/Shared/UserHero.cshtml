@@ -1,77 +1,186 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<section class="text-center py-3">
-    <div class="flex justify-center items-center gap-1 
+<section class="text-center px-5 py-3 fixed top-0 left-0 w-full bg-white shadow-lg">
+    <div class="hidden sm:flex justify-center items-center gap-1 
     sm:gap-3 lg:gap-4">
         <form asp-action="GetHomePage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] 
+            class="sm:px-2 sm:py-2 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] 
             text-[#00316E] sm:text-lg font-bold">Gym</button>
         </form>
         <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Memberships</button>
+            class="psm:px-2 sm:py-2 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Memberships</button>
         </form>
         <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Trainers</button>
+            class="sm:px-2 sm:py-2 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Trainers</button>
         </form>
         <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
             <button type="submit" 
-            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Gallery</button>
+            class="sm:px-2 sm:py-2 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Gallery</button>
         </form>
         <div class="flex justify-center items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4">
-            <button id="signInButton0" type="submit"
-            class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-2 border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">SignIn</button>
+            <button data-button-type="signInButton" type="submit"
+            class="sm:px-2 sm:py-2 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">SignIn</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
                 <button type="submit" 
-                class="w-12 h-12 text-xs p-2 border-2 border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
             </form>
+        </div>
+    </div>
+    <div class="flex sm:hidden justify-between items-center">
+        <form asp-action="GetHomePage" asp-controller="Page" method="GET">
+            <button type="submit" 
+            class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E] text-[#00316E] font-bold">Gym</button>
+        </form>
+        <div class="flex justify-center items-center gap-2">
+            <button data-button-type="signInButton" type="submit"
+            class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
+            <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
         </div>
     </div>
 </section>
 
-<!-- SignIn Form -->
-<div id="signInForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
-flex flex-col justify-center items-center gap-1">
-    <form asp-action="SignIn" asp-controller="User" method="POST"
-    class="flex flex-col justify-center items-center gap-2">
-        <p class="font-bold">Sign In</p>
-        <input type="text" name="userName" placeholder="username..." 
-        class="border p-2 rounded w-64" />
-        <input type="password" name="password" placeholder="password..." 
-        class="border p-2 rounded w-64" />
-        <button class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
-        hover:bg-white hover:text-[#00316E] hover:border-[#00316E]" type="submit">Sign In</button>
-    </form>
-    <p class="">or</p>
-    <button id="signUpButton" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
-    hover:bg-white hover:text-black hover:border-black" type="submit">Sign Up</button>
-</div>
 
-
-<!-- SignUp Form -->
-<div id="signUpForm" class="hidden absolute bg-white p-6 rounded-2xl shadow-md border
-flex flex-col justify-center items-center gap-1">
-    <form asp-action="SignUp" asp-controller="User" method="POST" enctype="multipart/form-data"
-    class="flex flex-col justify-center items-center gap-2">
-        <p class="font-bold">Sign Up</p>
-        <input type="text" name="userName" placeholder="Username..." 
-        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="password" name="password" placeholder="Password..." 
-        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="text" name="firstName" placeholder="Firstname..." 
-        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="text" name="lastName" placeholder="Lastname..." 
-        class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <div class="flex justify-center items-center gap-4">
-            <label class="w-24">ProfilePhoto: </label>
-            <input type="file" name="profilePhoto"
-            class="w-64 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />                     
+<!-- Hamburger Menu -->
+<div id="hamburgerMenu" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
+    <!-- hero -->
+    <section class="text-center px-5 py-3">
+        <div class="flex justify-end items-center gap-2">
+            <button data-button-type="signInButton" type="submit"
+            class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
+            <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
         </div>
-        <button type="submit" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
-        hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Sign Up</button>
-    </form>
-    <p class="">or</p>
-    <button id="signInButton1" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
-    hover:bg-white hover:text-black hover:border-black" type="submit">Sign In</button>
+    </section>
+    <!-- hamburgerMenu -->
+    <section class="text-center h-screen px-5 py-3 shadow-lg">
+        <div class="flex flex-col justify-center items-center gap-2">
+            <form asp-action="GetMembershipsPage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Memberships</button>
+            </form>
+            <form asp-action="GetTrainersPage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Trainers</button>
+            </form>
+            <form asp-action="GetGalleryPage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Gallery</button>
+            </form>
+        </div>
+    </section>
 </div>
+
+
+<!-- SignIn Container -->
+<div id="signInForm" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
+    <!-- hero -->
+    <section class="text-center px-5 py-3">
+        <div class="flex justify-end items-center gap-2">
+            <button data-button-type="signInButton" type="submit"
+            class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
+            <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
+        </div>
+    </section>
+    <!-- SignIn Form -->
+    <section class="text-center h-screen px-5 py-3 shadow-lg">
+        <div id="" class="bg-white p-6 rounded-2xl shadow-md border
+        flex flex-col justify-center items-center gap-1">
+            <form asp-action="SignIn" asp-controller="User" method="POST"
+            class="flex flex-col justify-center items-center gap-2">
+                <p class="font-bold">Sign In</p>
+                <input type="text" name="userName" placeholder="username..." 
+                class="border p-2 rounded w-full" />
+                <input type="password" name="password" placeholder="password..." 
+                class="border p-2 rounded w-full" />
+                <button class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                hover:bg-white hover:text-[#00316E] hover:border-[#00316E]" type="submit">Sign In</button>
+            </form>
+            <p class="">or</p>
+            <button data-button-type="signUpButton" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
+            hover:bg-white hover:text-black hover:border-black" type="submit">Sign Up</button>
+        </div>
+    </section>
+</div>
+
+
+<!-- SignUp Container-->
+<div id="signUpForm" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
+    <!-- hero -->
+    <section class="text-center px-5 py-3">
+        <div class="flex justify-end items-center gap-2">
+            <button data-button-type="signInButton" type="submit"
+            class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
+            <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
+        </div>
+    </section>
+    <!-- SignUp Form -->
+    <section class="text-center h-screen px-5 py-3 shadow-lg">
+        <div id="" class="bg-white p-6 rounded-2xl shadow-md border
+        flex flex-col justify-center items-center gap-1">
+            <form asp-action="SignUp" asp-controller="User" method="POST" enctype="multipart/form-data"
+            class="flex flex-col justify-center items-center gap-2">
+                <p class="font-bold">Sign Up</p>
+                <input type="text" name="userName" placeholder="Username..."
+                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="password" name="password" placeholder="Password..." 
+                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" name="firstName" placeholder="Firstname..." 
+                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" name="lastName" placeholder="Lastname..." 
+                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <div class="flex flex-col justify-center items-center gap-[2px]">
+                    <label class="underline">ProfilePhoto</label>
+                    <input type="file" name="profilePhoto"
+                    class="w-64 border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />                     
+                </div>
+                <button type="submit" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
+                hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Sign Up</button>
+            </form>
+            <p class="">or</p>
+            <button data-button-type="signInButton" class="py-1 px-4 bg-black text-white border-2 border-white rounded-full 
+            hover:bg-white hover:text-black hover:border-black" type="submit">Sign In</button>
+        </div>
+    </section>
+</div>
+

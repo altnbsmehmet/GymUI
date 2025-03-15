@@ -17,7 +17,7 @@
     <section class="bg-gray-100">
         <section class="container mx-auto px-6 py-12 flex flex-col justify-center items-center">
             <p class="text-xl font-bold text-[#00316E] mb-4">Gallery</p>
-            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 @foreach(var image in Model.Images) { 
                     <img src="~/Uploads/@image" class="rounded-lg shadow-md w-full h-64 object-cover">
                 }
