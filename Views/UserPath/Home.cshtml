@@ -55,7 +55,9 @@
         </section        
     </section>
 
-
+@if(Model.Message != null) {
+    <script>alert('@(Model.Message)');</script>
+}
 <script src="~/Scripts/SignInOrUp.js"></script>
 </body>
 </html>

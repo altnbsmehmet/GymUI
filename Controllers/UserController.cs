@@ -38,13 +38,13 @@ public class UserController : Controller
             }
 
             var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
-
             if (!userSignUpResponse.IsSuccess) {
                 viewModel.Message = userSignUpResponse.Message;
-                return View("~/Views/UserPath/Home.cshtml", viewModel);
+                return View("~/Views/UserPath/Home.cshtml", viewModel);                
             }
 
-            return RedirectToAction("GetSignInPage", "Page");
+            viewModel.Message = "Signed up successfully, now you can signin.";
+            return View("~/Views/UserPath/Home.cshtml", viewModel);
         } catch (Exception e) {
             viewModel.Message = e.Message;
             return View("~/Views/UserPath/Home.cshtml", viewModel);

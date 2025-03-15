@@ -58,7 +58,7 @@ public class AdminController : Controller
             }
 
             var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
-
+            
             TempData["Message"] = userSignUpResponse.Message;
             return RedirectToAction("GetAdminEmployeesPage", "Page");
         } catch (Exception e) {

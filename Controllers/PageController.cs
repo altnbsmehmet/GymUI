@@ -17,7 +17,10 @@ public class PageController : Controller
     [HttpGet]
     public async Task<IActionResult> GetHomePage()
     {
-        return View("~/Views/UserPath/Home.cshtml");
+        var viewModel = new ViewModelBase();
+        string message = TempData["Message"] as string;
+        if (!string.IsNullOrEmpty(message)) viewModel.Message = message;
+        return View("~/Views/UserPath/Home.cshtml", viewModel);
     }
 
     [HttpGet("memberships")]
