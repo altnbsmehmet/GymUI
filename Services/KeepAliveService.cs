@@ -10,7 +10,7 @@ public class KeepAliveService : BackgroundService
     private readonly HttpClient _httpClient;
     private readonly ILogger<KeepAliveService> _logger;
     private string FrontendUrl = EnvironmentVariables.FrontendUrl;
-
+    private string ApiUrl = $"{EnvironmentVariables.ApiUrl}membership/getall";
     public KeepAliveService(HttpClient httpClient, ILogger<KeepAliveService> logger)
     {
         _httpClient = httpClient;
@@ -23,6 +23,9 @@ public class KeepAliveService : BackgroundService
             try {
                 var uiResponse = await _httpClient.GetAsync(FrontendUrl, stoppingToken);
                 Console.WriteLine($"\n\n[KeepAlive] UI Ping - Status: {uiResponse.StatusCode} - {DateTime.UtcNow}\n\n");
+
+                var apiResponse = await _httpClient.GetAsync(ApiUrl, stoppingToken);
+                Console.WriteLine($"\n\n[KeepAlive] UI Ping - Status: {apiResponse.StatusCode} - {DateTime.UtcNow}\n\n");
             } catch (Exception ex) {
                 Console.WriteLine($"\n\n[KeepAlive] Error: {ex.Message} - {DateTime.UtcNow}\n\n");
             }
