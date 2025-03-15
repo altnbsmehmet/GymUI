@@ -50,13 +50,16 @@
         </div>
     </div>
 </section>
+<!-- Hero Invisible Block-->
+<section class="invisible w-full h-[72px]">
+</section>
 
 
 <!-- Hamburger Menu -->
 <div id="hamburgerMenu" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
     <!-- hero -->
     <section class="text-center px-5 py-3">
-        <div class="flex justify-end items-center gap-2">
+        <div class="sm:invisible flex justify-end items-center gap-2">
             <button data-button-type="signInButton" type="submit"
             class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
@@ -96,7 +99,7 @@
 <div id="signInForm" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
     <!-- hero -->
     <section class="text-center px-5 py-3">
-        <div class="flex justify-end items-center gap-2">
+        <div class="sm:invisible flex justify-end items-center gap-2">
             <button data-button-type="signInButton" type="submit"
             class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
@@ -138,7 +141,7 @@
 <div id="signUpForm" class="w-80 h-screen hidden fixed top-0 right-0 bg-white">
     <!-- hero -->
     <section class="text-center px-5 py-3">
-        <div class="flex justify-end items-center gap-2">
+        <div class="sm:invisible flex justify-end items-center gap-2">
             <button data-button-type="signInButton" type="submit"
             class="px-2 py-2 border-[1px] border-white rounded-full hover:border-[#00316E]">SignIn</button>
             <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
