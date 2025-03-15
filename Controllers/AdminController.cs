@@ -41,15 +41,15 @@ public class AdminController : Controller
         try {
             signUpDto.Role = "Employee";
 
-            var formData = new MultipartFormDataContent {
-                { new StringContent(signUpDto.UserName), "UserName" },
-                { new StringContent(signUpDto.Password), "Password" },
-                { new StringContent(signUpDto.FirstName), "FirstName" },
-                { new StringContent(signUpDto.LastName), "LastName" },
-                { new StringContent(signUpDto.Role), "Role" },
-                { new StringContent(signUpDto.Position), "Position" },
-                { new StringContent(signUpDto.Salary.ToString()), "Salary" }
-            };
+            var formData = new MultipartFormDataContent();
+
+            if (!string.IsNullOrEmpty(signUpDto.UserName)) formData.Add(new StringContent(signUpDto.UserName), "UserName");
+            if (!string.IsNullOrEmpty(signUpDto.Password)) formData.Add(new StringContent(signUpDto.Password), "Password");
+            if (!string.IsNullOrEmpty(signUpDto.FirstName)) formData.Add(new StringContent(signUpDto.FirstName), "FirstName");
+            if (!string.IsNullOrEmpty(signUpDto.LastName)) formData.Add(new StringContent(signUpDto.LastName), "LastName");
+            if (!string.IsNullOrEmpty(signUpDto.Role)) formData.Add(new StringContent(signUpDto.Role), "Role");
+            if (!string.IsNullOrEmpty(signUpDto.Position)) formData.Add(new StringContent(signUpDto.Position), "Position");
+            if (signUpDto.Salary.HasValue) formData.Add(new StringContent(signUpDto.Salary.Value.ToString()), "Salary");
 
             if (signUpDto.ProfilePhoto != null){
                 var fileContent = new StreamContent(signUpDto.ProfilePhoto.OpenReadStream());
