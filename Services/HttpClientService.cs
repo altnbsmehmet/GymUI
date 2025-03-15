@@ -11,6 +11,7 @@ public class HttpClientService : IHttpClientService
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
         _apiUrl = EnvironmentVariables.ApiUrl;
+        _httpClient.Timeout = TimeSpan.FromMinutes(1);
     }
 
     private string BuildUrl(string endpoint) => $"{_apiUrl}{endpoint}";
