@@ -62,7 +62,7 @@ public class AdminController : Controller
             TempData["Message"] = userSignUpResponse.Message;
             return RedirectToAction("GetAdminEmployeesPage", "Page");
         } catch (Exception e) {
-            TempData["Message"] = e.Message;
+            TempData["Message"] = $"Error from UI/CreateEmployee --> {e.Message}";
             return RedirectToAction("GetAdminEmployeesPage", "Page");
         }
     }
