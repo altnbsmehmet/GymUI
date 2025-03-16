@@ -92,7 +92,7 @@ public class UserController : Controller
 
         var userId = userResponse.User.Id;
 
-        signUpDto.Role = "Member";
+        signUpDto.Role = userResponse.User.Role;
         
         var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"user/update/{userId}", signUpDto);
 
