@@ -1,5 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<section class="text-center py-3">
+<section class="text-center px-5 py-3 fixed top-0 left-0 w-full bg-white shadow-lg z-50">
     <div class="hidden sm:flex justify-center items-center gap-1
     sm:gap-3 lg:gap-4">
         <p class="text-[#D40D12] text-xs sm:text-sm font-bold">AdminPanel</p>
@@ -22,7 +22,62 @@
             </form>
         </div>
     </div>
-    <div class="flex sm:hidden justify-center items-center gap-1">
-        <p>what is up</p>
+    <div class="flex sm:hidden justify-between items-center">
+        <div class="flex justify-center items-center gap-2">
+            <p class="text-[#D40D12] text-xs sm:text-sm font-bold">AdminPanel</p>
+            <form asp-action="GetAdminHomePage" asp-controller="Page" method="GET">
+                <button type="submit" class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-[#00316E] text-xs sm:text-sm font-bold">Home</button>
+            </form>            
+        </div>
+        <div class="flex justify-center items-center gap-2">
+            <form asp-action="GetAdminProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full 
+                hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
+        </div>
     </div>
 </section>
+<section class="invisible w-full h-[72px]">
+</section>
+
+
+<!-- Hamburger Menu -->
+<div id="hamburgerMenu" class="w-80 h-screen hidden fixed top-0 right-0 bg-white z-50">
+    <!-- hero -->
+    <section class="text-center px-5 py-3">
+        <div class="sm:invisible flex justify-end items-center gap-2">
+            <form asp-action="GetProfilePage" asp-controller="Page" method="GET">
+                <button type="submit" 
+                class="w-12 h-12 text-xs p-2 border-[1px] border-white rounded-full hover:border-[#00316E] flex justify-center items-center">Profile</button>
+            </form>
+            <button data-button-type="hamburgerMenuButton" type="submit"
+            class="px-2 py-2 rounded-full text-xs
+            flex flex-col justify-center items-center gap-1">
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+                <span class="h-[2px] w-[15px] bg-black pointer-events-none"></span>
+            </button>
+        </div>
+    </section>
+    <!-- hamburgerMenu -->
+    <section class="text-center h-screen px-5 py-3 shadow-lg">
+        <div class="flex flex-col justify-center items-center gap-2">
+            <form asp-action="GetAdminMembershipsPage" asp-controller="Page" method="GET">
+                <button type="submit" class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Memberships</button>
+            </form>
+            <form asp-action="GetAdminEmployeesPage" asp-controller="Page" method="GET">
+                <button type="submit" class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Employees</button>
+            </form>
+            <form asp-action="GetAdminGalleryPage" asp-controller="Page" method="GET">
+                <button type="submit" class="px-[2px] py-[2px] sm:px-1 sm:py-1 md:px-3 lg:px-4 border-[1px] border-white rounded-full hover:border-[#00316E] text-xs sm:text-sm">Gallery</button>
+            </form>
+        </div>
+    </section>
+</div>

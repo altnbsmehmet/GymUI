@@ -115,7 +115,6 @@ public class PageController : Controller
     public async Task<IActionResult> GetAdminHomePage()
     {
         var authorizationResponse = await _httpClientService.GetAsync<UserAuthorizationResponse>($"user/authorizeuser");
-        Console.WriteLine($"\n\n[DEBUG] authorizationResponse\n{JsonConvert.SerializeObject(authorizationResponse, Formatting.Indented)}\n\n");
         if (authorizationResponse.IsSuccess && authorizationResponse.Role == "Admin") {
             return View("~/Views/AdminPath/AdminHome.cshtml");            
         }
