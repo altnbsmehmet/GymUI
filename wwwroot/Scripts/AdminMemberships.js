@@ -8,8 +8,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         membershipCreationForm.classList.toggle('hidden');
 
         const buttonRect = membershipCreationButton.getBoundingClientRect();
+        const formRect = membershipCreationForm.getBoundingClientRect();
         membershipCreationForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
-        membershipCreationForm.style.left = `${buttonRect.left + window.scrollX}px`;
+        membershipCreationForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
     });
 
     console.log("whatsup");

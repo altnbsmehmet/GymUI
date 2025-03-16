@@ -6,8 +6,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         employeeCreationForm.classList.toggle('hidden');
 
         const buttonRect = employeeCreationButton.getBoundingClientRect();
+        const formRect = employeeCreationForm.getBoundingClientRect();
         employeeCreationForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
-        employeeCreationForm.style.left = `${buttonRect.left + window.scrollX}px`;
+        employeeCreationForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
     });
 
     const fileInput = document.getElementById('fileInput');
@@ -26,8 +27,9 @@ window.addEventListener("DOMContentLoaded", async () => {
             employeeUpdateForm.classList.toggle('hidden');
 
             const buttonRect = employeeUpdateButton.getBoundingClientRect();
+            const formRect = employeeUpdateForm.getBoundingClientRect();
             employeeUpdateForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
-            employeeUpdateForm.style.left = `${buttonRect.left + window.scrollX}px`;
+            employeeUpdateForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
         });
     });
 
@@ -42,8 +44,9 @@ window.addEventListener("DOMContentLoaded", async () => {
             employeeDeletionForm.classList.toggle('hidden');
 
             const buttonRect = employeeDeletionButton.getBoundingClientRect();
+            const formRect = employeeDeletionForm.getBoundingClientRect();
             employeeDeletionForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
-            employeeDeletionForm.style.left = `${buttonRect.left + window.scrollX}px`;
+            employeeDeletionForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
         });
     });
     const cancelEmployeeDeletionButtons = document.querySelectorAll('.cancelEmployeeDeletionButton');
