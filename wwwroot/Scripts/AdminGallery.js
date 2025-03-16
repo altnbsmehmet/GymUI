@@ -5,9 +5,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     imageCreationButton.addEventListener('click', function() {
         imageCreationForm.classList.toggle('hidden');
 
+        console.log("update");
         const buttonRect = imageCreationButton.getBoundingClientRect();
+        const formRect = imageCreationForm.getBoundingClientRect();
         imageCreationForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
-        imageCreationForm.style.left = `${buttonRect.left + window.scrollX}px`;
+        imageCreationForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
     });
 
     const fileInput = document.getElementById('fileInput');

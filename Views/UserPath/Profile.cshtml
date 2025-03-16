@@ -30,7 +30,7 @@
                     <p id="aboutme"><span class="text-lg font-semibold"></span></p>
                     @if(Model.Employee != null) {
                         <p id="position"><span class="text-lg font-semibold">Position: </span>@(Model.Employee.Position)</p>
-                        <p id="salary"><span class="text-lg font-semibold">Salary: </span>@(Model.Employee.Salary)</p>
+                        <p id="salary"><span class="text-lg font-semibold">Salary: </span>@(Model.Employee.Salary)$</p>
                     }
                     <button id="updateDivButton" class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
                     hover:bg-white hover:text-[#00316E] hover:border-[#00316E]">Update</button>
@@ -68,7 +68,7 @@
                             flex flex-col justify-center items-center gap-2">
                             <p><strong>Subscription: </strong> @(subscription.Membership.Type)</p>
                             <p><strong>Duration: </strong>@(subscription.Membership.Duration) Months</p>
-                            <p><strong>Price: </strong>@(subscription.Membership.Price)₺ (Paid)</p>
+                            <p><strong>Price: </strong>@(subscription.Membership.Price)$ (Paid)</p>
                             <p><strong>Start Date:</strong> @(subscription.StartDate.HasValue ? subscription.StartDate.Value.ToString("MMMM dd, yyyy") : "N/A")</p>
                             <p><strong>End Date:</strong> @(subscription.EndDate.HasValue ? subscription.EndDate.Value.ToString("MMMM dd, yyyy") : "N/A")</p>
                             <form action="subscription/cancel/@(subscription.Id)" method="GET">
