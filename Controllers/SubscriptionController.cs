@@ -25,7 +25,13 @@ public class SubscriptionController : Controller
             Status = "Active"
         };
 
-        var subscriptionResponse = await _httpClientService.PostAsync<ResponseBase>($"subscription/create/{membershipId}", subscriptionDto);
+        var subscriptionResponse = await _httpClientService.PostAsync<ResponseBase>(new RequestModelBase {
+            Route = $"subscription/create/{membershipId}",
+            Headers = new Dictionary<string, string> {
+                { "Content-Type", "application/json" }
+            },
+            Body = subscriptionDto,
+        });
 
         if (subscriptionResponse.IsSuccess) {
             return RedirectToAction("GetProfilePage", "Page");
@@ -39,7 +45,7 @@ public class SubscriptionController : Controller
     [HttpGet("cancel/{id}")]
     public async Task<IActionResult> Cancel(int id)
     {
-        var subscriptionDeletionRespons = await _httpClientService.DeleteAsync<ResponseBase>($"subscription/delete/{id}");
+        var subscriptionDeletionRespons = await _httpClientService.DeleteAsync<ResponseBase>(new RequestModelBase { Route = $"subscription/delete/{id}" });
 
         TempData["Message"] = subscriptionDeletionRespons.Message;
         return RedirectToAction("GetProfilePage", "Page");

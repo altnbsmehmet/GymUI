@@ -16,7 +16,13 @@ public class AdminController : Controller
     [HttpPost("membership/create")]
     public async Task<IActionResult> CreateMembership(MembershipDto membershipDto)
     {
-        var membershiCreationResponse = await _httpClientService.PostAsync<ResponseBase>($"membership/create", membershipDto);
+        var membershiCreationResponse = await _httpClientService.PostAsync<ResponseBase>(new RequestModelBase {
+            Route = $"membership/create",
+            Headers = new Dictionary<string, string> {
+                { "Content-Type", "application/json" },
+            },
+            Body = membershipDto,
+        });
         TempData["Message"] = membershiCreationResponse.Message;
         return RedirectToAction("GetAdminMembershipsPage", "Page");
     }
@@ -30,7 +36,7 @@ public class AdminController : Controller
     [HttpGet("membership/toggleactivation/{id}")]
     public async Task<IActionResult> DeactivateMembership(int id)
     {
-        var deactivationResponse = await _httpClientService.GetAsync<ResponseBase>($"membership/toggleactivation/{id}");
+        var deactivationResponse = await _httpClientService.GetAsync<ResponseBase>(new RequestModelBase { Route = $"membership/toggleactivation/{id}" });
         TempData["Message"] = deactivationResponse.Message;
         return RedirectToAction("GetAdminMembershipsPage", "Page");
     }
@@ -57,7 +63,13 @@ public class AdminController : Controller
                 formData.Add(fileContent, "ProfilePhoto", signUpDto.ProfilePhoto.FileName);
             }
 
-            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
+            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>(new RequestModelBase {
+                Route = "user/signup",
+                Headers = new Dictionary<string, string> {
+                    { "Content-Type", "multipart/form-data" },
+                },
+                Body= formData
+            });
             
             TempData["Message"] = userSignUpResponse.Message;
             return RedirectToAction("GetAdminEmployeesPage", "Page");
@@ -71,7 +83,14 @@ public class AdminController : Controller
     public async Task<IActionResult> UpdateEmployee(SignUpDto signUpDto, string userId)
     {
         signUpDto.Role = "Employee";
-        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"user/update/{userId}", signUpDto);
+
+        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>(new RequestModelBase {
+            Route = $"user/update/{userId}",
+            Headers = new Dictionary<string, string> {
+                { "Content-Type", "multipart/form-data" },
+            },
+            Body= signUpDto
+        });
 
         TempData["Message"] = userPatchResponse.Message;
         return RedirectToAction("GetAdminEmployeesPage", "Page");
@@ -80,7 +99,7 @@ public class AdminController : Controller
     [HttpPost("employee/delete")]
     public async Task<IActionResult> DeleteEmployee(string userId)
     {
-        var userDeletionResponse = await _httpClientService.DeleteAsync<ResponseBase>($"user/delete/{userId}");
+        var userDeletionResponse = await _httpClientService.DeleteAsync<ResponseBase>(new RequestModelBase { Route = $"user/delete/{userId}" });
 
         TempData["Message"] = userDeletionResponse.Message;
         return RedirectToAction("GetAdminEmployeesPage", "Page");

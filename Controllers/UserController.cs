@@ -37,7 +37,13 @@ public class UserController : Controller
                 formData.Add(fileContent, "ProfilePhoto", signUpDto.ProfilePhoto.FileName);
             }
 
-            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>($"user/signup", formData);
+            var userSignUpResponse = await _httpClientService.PostAsync<ResponseBase>(new RequestModelBase {
+                Route = $"user/signup",
+                Headers = new Dictionary<string, string> {
+                    { "Content-Type", "multipart/form-data" },
+                },
+                Body = formData,
+            });
             if (!userSignUpResponse.IsSuccess) {
                 viewModel.Message = userSignUpResponse.Message;
                 return View("~/Views/UserPath/Home.cshtml", viewModel);                
@@ -54,7 +60,13 @@ public class UserController : Controller
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
-        var signInResponse = await _httpClientService.PostAsync<SignInResponse>($"user/signin", signInDto);
+        var signInResponse = await _httpClientService.PostAsync<SignInResponse>(new RequestModelBase {
+            Route = $"user/signin",
+            Headers = new Dictionary<string, string> {
+                { "Content-Type", "application/json" },
+            },
+            Body = signInDto,
+        });
 
         if (!signInResponse.IsSuccess) {
             var viewModel = new ViewModelBase();
@@ -77,7 +89,7 @@ public class UserController : Controller
     [HttpGet("signout")]
     public async Task<IActionResult> SignOut()
     {
-        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>($"user/signout");
+        var signOutResponse = await _httpClientService.GetAsync<ResponseBase>(new RequestModelBase { Route = $"user/signout" });
 
         Response.Cookies.Delete("jwt");
         
@@ -88,13 +100,19 @@ public class UserController : Controller
     [HttpPost("update")]
     public async Task<IActionResult> Update(SignUpDto signUpDto)
     {
-        var userResponse = await _httpClientService.GetAsync<GetUserResponse>($"user/getcurrentuser");
+        var userResponse = await _httpClientService.GetAsync<GetUserResponse>(new RequestModelBase { Route = $"user/getcurrentuser" });
 
         var userId = userResponse.User.Id;
 
         signUpDto.Role = userResponse.User.Role;
         
-        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>($"user/update/{userId}", signUpDto);
+        var userPatchResponse = await _httpClientService.PatchAsync<ResponseBase>(new RequestModelBase {
+            Route = $"user/update/{userId}",
+            Headers = new Dictionary<string, string> {
+                { "Content-Type", "application/json" },
+            },
+            Body = signUpDto,
+        });
 
         TempData["Message"] = userPatchResponse.Message;
         return RedirectToAction("GetProfilePage", "Page");

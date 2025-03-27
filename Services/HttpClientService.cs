@@ -36,51 +36,48 @@ public class HttpClientService : IHttpClientService
     }
 
     // public methods
-    public async Task<T> GetAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
+    public async Task<T> GetAsync<T>(RequestModelBase Request) where T : ResponseBase, new()
     {
         var jwtToken = GetAuthorizationHeader();
         var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
 
-        var routeList = route.Split('/').ToList();
-        var controller = routeList[0];
-        var endpoint = routeList[1];
-        var id = routeList.Count > 2 ? routeList[2] : "";
+        var (controller, endpoint, id) = ParseRoute(Request.Route);
 
         var apiService = CreateApiService();
-        return await apiService.GetAsync<T>(controller, endpoint, id, authorization, customHeaders);
+        return await apiService.GetAsync<T>(controller, endpoint, id, authorization, Request.Headers);
     }
 
-    public async Task<T> PostAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
+    public async Task<T> PostAsync<T>(RequestModelBase Request) where T : ResponseBase, new()
     {
         var jwtToken = GetAuthorizationHeader();
         var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
 
-        var (controller, endpoint, id) = ParseRoute(route);
+        var (controller, endpoint, id) = ParseRoute(Request.Route);
 
         var apiService = CreateApiService();
-        return await apiService.PostAsync<T>(controller, endpoint, id, content, authorization, customHeaders);
+        return await apiService.PostAsync<T>(controller, endpoint, id, Request.Body, authorization, Request.Headers);
     }
 
-    public async Task<T> PatchAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
+    public async Task<T> PatchAsync<T>(RequestModelBase Request) where T : ResponseBase, new()
     {
         var jwtToken = GetAuthorizationHeader();
         var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
 
-        var (controller, endpoint, id) = ParseRoute(route);
+        var (controller, endpoint, id) = ParseRoute(Request.Route);
 
         var apiService = CreateApiService();
-        return await apiService.PatchAsync<T>(controller, endpoint, id, content, authorization, customHeaders);
+        return await apiService.PatchAsync<T>(controller, endpoint, id, Request.Body, authorization, Request.Headers);
     }
 
-    public async Task<T> DeleteAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
+    public async Task<T> DeleteAsync<T>(RequestModelBase Request) where T : ResponseBase, new()
     {
         var jwtToken = GetAuthorizationHeader();
         var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
 
-        var (controller, endpoint, id) = ParseRoute(route);
+        var (controller, endpoint, id) = ParseRoute(Request.Route);
 
         var apiService = CreateApiService();
-        return await apiService.DeleteAsync<T>(controller, endpoint, id, authorization, customHeaders);
+        return await apiService.DeleteAsync<T>(controller, endpoint, id, authorization, Request.Headers);
     }
 
 }
