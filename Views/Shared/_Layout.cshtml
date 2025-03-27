@@ -1,0 +1,15 @@
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+<script>
+    window.AppConfig = {
+        apiSettings: {
+            localhostUrl: '@Configuration["ApiSettings:LocalhostUrl"]',
+            localhostDockerUrl: '@Configuration["ApiSettings:LocalhostDockerUrl"]',
+            productionUrl: '@Configuration["ApiSettings:ProductionUrl"]'
+        },
+        frontendUrl: '@Configuration["FrontendUrl"]',
+        cookieSettings: {
+            secure: '@Configuration["CookieSettings:Secure"]' === 'true',
+            sameSiteMode: '@Configuration["CookieSettings:SameSiteMode"]'
+        }
+    };
+</script>

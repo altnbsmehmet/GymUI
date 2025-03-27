@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @await Html.PartialAsync("_Layout.cshtml")
 </head>
 <body>
     
@@ -77,16 +78,16 @@
     <!-- Employee Update Form (Hidden) -->
     <form asp-action="UpdateEmployee" asp-controller="Admin" method="POST"
         id="employeeUpdateForm" class="hidden absolute w-[250px] flex flex-col items-center justify-center bg-white gap-2 p-4 border rounded-lg shadow-md">
-        <input id="userIdInputUpdate" class="hidden" type="text" name="userId" value="">
-        <input type="text" name="userName" placeholder="Username..."
+        <input id="userIdInputForUpdate" class="hidden" type="text" name="userId" value="">
+        <input id="userNameInputForUpdate" type="text" name="userName" placeholder="Username..."
                 class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="text" name="firstName" placeholder="Firstname..."
+        <input id="firstNameeInputForUpdate" type="text" name="firstName" placeholder="Firstname..."
             class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="text" name="lastName" placeholder="Lastname..."
+        <input id="lastNameInputForUpdate" type="text" name="lastName" placeholder="Lastname..."
             class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="text" name="position" placeholder="Position..."
+        <input id="positionInputForUpdate" type="text" name="position" placeholder="Position..."
             class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <input type="number" name="salary" placeholder="Salary..."
+        <input id="salaryInputForUpdate" type="number" name="salary" placeholder="Salary..."
             class="text-sm w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
         <button type="submit"
             class="py-1 px-4 bg-[#00316E] text-white border-2 border-white rounded-full 
@@ -96,7 +97,7 @@
     <!-- Employee Deletion Form (Hidden) -->
     <form asp-action="DeleteEmployee" asp-controller="Admin" method="POST"
         id="employeeDeletionForm" class="hidden absolute w-[200px] flex items-center justify-center bg-white gap-2 p-4 border rounded-lg shadow-md">
-        <input id="userIdInputDelete" class="hidden" type="text" name="userId" value="">
+        <input id="userIdInputForDelete" class="hidden" type="text" name="userId" value="">
         <button type="button" class="cancelEmployeeDeletionButton py-1 px-4 bg-black text-white border-2 border-white rounded-full 
         hover:bg-white hover:text-black hover:border-black">Cancel</button>
         <button type="submit" class="py-1 px-4 bg-[#D40D12] text-white border-2 border-white rounded-full 

@@ -1,76 +1,86 @@
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-using Polly;
-using Polly.Retry;
-using Polly.Extensions.Http;
-using System.Net;
+using Refit;
 
 public class HttpClientService : IHttpClientService
 {
-    private readonly HttpClient _httpClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly string _apiUrl;
-    private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
-    public HttpClientService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+
+    public HttpClientService(IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
     {
-        _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
         _apiUrl = EnvironmentVariables.ApiUrl;
-        _httpClient.Timeout = TimeSpan.FromMinutes(1);
-
-        _retryPolicy = HttpPolicyExtensions
-            .HandleTransientHttpError()
-            .OrResult(msg => msg.StatusCode == HttpStatusCode.BadGateway) // 502 için tekrar dene
-            .WaitAndRetryAsync(8, retryAttempt => TimeSpan.FromSeconds(5)); // 2 saniye arayla 3 kez tekrar dene
     }
 
+    // private methods
     private string BuildUrl(string endpoint) => $"{_apiUrl}{endpoint}";
 
-    private void AddAuthorizationHeader()
+    private (string Controller, string Endpoint, string Id) ParseRoute(string route)
     {
-        var jwtToken = _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
-        if (!string.IsNullOrEmpty(jwtToken)) _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
+        var routeList = route.Split('/').ToList();
+        return (
+            routeList.ElementAtOrDefault(0) ?? "", 
+            routeList.ElementAtOrDefault(1) ?? "", 
+            routeList.ElementAtOrDefault(2) ?? ""
+        );
     }
 
-    public async Task<T> GetAsync<T>(string endpoint) where T : ResponseBase, new()
+    private IApiService CreateApiService()
     {
-        return await MakeRequestAsync<T>(() => _httpClient.GetAsync(BuildUrl(endpoint)));
+        var client = new HttpClient { BaseAddress = new Uri(_apiUrl) };
+        return RestService.For<IApiService>(client);
     }
 
-    public async Task<T> PostAsync<T>(string endpoint, object content) where T : ResponseBase, new()
+    private string GetAuthorizationHeader()
     {
-        HttpContent httpContent = content is MultipartFormDataContent formData ? formData : JsonContent.Create(content);
-        return await MakeRequestAsync<T>(() => _httpClient.PostAsync(BuildUrl(endpoint), httpContent));
+        return _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
     }
 
-    public async Task<T> PatchAsync<T>(string endpoint, object content) where T : ResponseBase, new()
+    // public methods
+    public async Task<T> GetAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
     {
-        return await MakeRequestAsync<T>(() => _httpClient.PatchAsJsonAsync(BuildUrl(endpoint), content));
+        var jwtToken = GetAuthorizationHeader();
+        var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
+
+        var routeList = route.Split('/').ToList();
+        var controller = routeList[0];
+        var endpoint = routeList[1];
+        var id = routeList.Count > 2 ? routeList[2] : "";
+
+        var apiService = CreateApiService();
+        return await apiService.GetAsync<T>(controller, endpoint, id, authorization, customHeaders);
     }
 
-    public async Task<T> DeleteAsync<T>(string endpoint) where T : ResponseBase, new()
+    public async Task<T> PostAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
     {
-        return await MakeRequestAsync<T>(() => _httpClient.DeleteAsync(BuildUrl(endpoint)));
+        var jwtToken = GetAuthorizationHeader();
+        var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
+
+        var (controller, endpoint, id) = ParseRoute(route);
+
+        var apiService = CreateApiService();
+        return await apiService.PostAsync<T>(controller, endpoint, id, content, authorization, customHeaders);
     }
 
-    // modular request maker for all type of request methods
-    private async Task<T> MakeRequestAsync<T>(Func<Task<HttpResponseMessage>> requestFunc) where T : ResponseBase, new()
+    public async Task<T> PatchAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
     {
-        AddAuthorizationHeader();
-        HttpResponseMessage response = null;
-        try
-        {
-            response = await requestFunc();
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
-        }
-        catch (HttpRequestException ex)
-        {
-            return new T { IsSuccess = response?.IsSuccessStatusCode ?? false, Message = $"HTTP request failed: {response?.StatusCode}. {ex.Message}" };
-        }
-        catch (Exception ex)
-        {
-            return new T { IsSuccess = false, Message = $"Unexpected error: {ex.Message}" };
-        }
+        var jwtToken = GetAuthorizationHeader();
+        var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
+
+        var (controller, endpoint, id) = ParseRoute(route);
+
+        var apiService = CreateApiService();
+        return await apiService.PatchAsync<T>(controller, endpoint, id, content, authorization, customHeaders);
     }
+
+    public async Task<T> DeleteAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new()
+    {
+        var jwtToken = GetAuthorizationHeader();
+        var authorization = jwtToken != null ? $"Bearer {jwtToken}" : null;
+
+        var (controller, endpoint, id) = ParseRoute(route);
+
+        var apiService = CreateApiService();
+        return await apiService.DeleteAsync<T>(controller, endpoint, id, authorization, customHeaders);
+    }
+
 }

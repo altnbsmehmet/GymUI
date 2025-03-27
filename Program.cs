@@ -37,4 +37,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.Run();

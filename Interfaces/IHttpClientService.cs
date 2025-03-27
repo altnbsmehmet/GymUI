@@ -1,7 +1,10 @@
 public interface IHttpClientService
 {
-    Task<T> GetAsync<T>(string url) where T : ResponseBase, new();
-    Task<T> PostAsync<T>(string url, object content) where T : ResponseBase, new();
-    Task<T> PatchAsync<T>(string url, object content) where T : ResponseBase, new();
-    Task<T> DeleteAsync<T>(string url) where T : ResponseBase, new();
+    Task<T> GetAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new();
+
+    Task<T> PostAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new();
+
+    Task<T> PatchAsync<T>(string route, object content, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new();
+
+    Task<T> DeleteAsync<T>(string route, IDictionary<string, string>? customHeaders = null) where T : ResponseBase, new();
 }

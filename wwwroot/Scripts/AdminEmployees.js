@@ -19,27 +19,44 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const employeeUpdateButtons = document.querySelectorAll('.employeeUpdateButton');
     const employeeUpdateForm = document.getElementById('employeeUpdateForm');
-    const userIdInputUpdate = document.getElementById('userIdInputUpdate');
+    const userIdInputForUpdate = document.getElementById('userIdInputForUpdate');
+    const userNameInputForUpdate = document.getElementById('userNameInputForUpdate');
+    const firstNameeInputForUpdate = document.getElementById('firstNameeInputForUpdate');
+    const lastNameInputForUpdate = document.getElementById('lastNameInputForUpdate');
+    const positionInputForUpdate = document.getElementById('positionInputForUpdate');
+    const salaryInputForUpdate = document.getElementById('salaryInputForUpdate');
     employeeUpdateButtons.forEach(employeeUpdateButton => {
         employeeUpdateButton.addEventListener('click', function() {
-            userIdInputUpdate.value = this.dataset.userId;
+            const userId = this.dataset.userId;
+            userIdInputForUpdate.value = userId;
 
-            employeeUpdateForm.classList.toggle('hidden');
+            fetch(`${window.AppConfig.apiSettings.localhostUrl}user/getbyid/${userId}`, {
+                method: 'GET',
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    userNameInputForUpdate = data.user.userName;
+                    firstNameeInputForUpdate = data.user.firstName;
+                    lastNameInputForUpdate = data.user.lastName;
+                    positionInputForUpdate = data.employee.position;
+                    salaryInputForUpdate = data.employee.salary;
+                }).catch(error => console.log(`Error from api url 'user/getbyid/{id}' --> ${error}`));
 
             const buttonRect = employeeUpdateButton.getBoundingClientRect();
             const formRect = employeeUpdateForm.getBoundingClientRect();
             employeeUpdateForm.style.top = `${buttonRect.bottom + window.scrollY}px`;
             employeeUpdateForm.style.left = `${buttonRect.left + (buttonRect.width/2) + window.scrollX - (formRect.width/2)}px`;
+            employeeUpdateForm.classList.toggle('hidden');
         });
     });
 
     const employeeDeletionButtons = document.querySelectorAll('.employeeDeletionButton');
     const employeeDeletionForm = document.getElementById('employeeDeletionForm');
-    const userIdInputDelete = document.getElementById('userIdInputDelete');
+    const userIdInputForDelete = document.getElementById('userIdInputForDelete');
     employeeDeletionButtons.forEach(employeeDeletionButton => {
         employeeDeletionButton.addEventListener('click', function() {
-            userIdInputDelete.value = this.dataset.userId;
-            console.dir(userIdInputDelete);
+            userIdInputForDelete.value = this.dataset.userId;
 
             employeeDeletionForm.classList.toggle('hidden');
 
